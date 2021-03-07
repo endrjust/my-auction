@@ -20,7 +20,6 @@ public class AuctionService {
     private final AuctionRepository auctionRepository;
     private final AuctionMapper auctionMapper;
 
-    @Autowired
     public AuctionService(AuctionRepository auctionRepository, AuctionMapper auctionMapper) {
         this.auctionRepository = auctionRepository;
         this.auctionMapper = auctionMapper;
