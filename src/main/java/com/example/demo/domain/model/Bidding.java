@@ -1,5 +1,9 @@
 package com.example.demo.domain.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,6 +12,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@Data
+@RequiredArgsConstructor
+@NoArgsConstructor
+
 public class Bidding {
     @Id
     @GeneratedValue
