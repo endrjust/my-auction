@@ -5,15 +5,14 @@ import com.example.demo.domain.model.Category;
 import com.example.demo.model.AuctionDto;
 import com.example.demo.service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auctions")
 public class AuctionController {
 
     private final AuctionService auctionService;
@@ -23,48 +22,49 @@ public class AuctionController {
         this.auctionService = auctionService;
     }
 
-    @GetMapping(path = "/auctions")
+    @GetMapping
     public List<AuctionDto> findAll() {
         return auctionService.findAll();
     }
 
-    @GetMapping(path = "/{category}")
-    public List<AuctionDto> findAllByCategory(Category category) {
-        return auctionService.findAllByCategory(category);
+    @GetMapping(path = "/category")
+    public List<AuctionDto> findAllByCategory(@RequestParam("category") String category) {
+        Category parsed = Category.valueOf(category.toUpperCase());
+        return auctionService.findAllByCategory(parsed);
     }
 
-    @GetMapping(path = "/{accountName}")
-    public List<AuctionDto> findAllByUser(String accountName) {
+    @GetMapping(path = "/accountName")
+    public List<AuctionDto> findAllByUser(@RequestParam("accountName") String accountName) {
         return auctionService.findAllByUser(accountName);
     }
 
-    @GetMapping(path = "/{title}")
-    public List<AuctionDto> findAllByTitle(String title) {
+    @GetMapping(path = "/title")
+    public List<AuctionDto> findAllByTitle(@RequestParam("title") String title) {
         return auctionService.findAllByTitle(title);
     }
 
-    @GetMapping(path = "/{location}")
-    public List<AuctionDto> findAllByLocation(String location) {
+    @GetMapping(path = "/location")
+    public List<AuctionDto> findAllByLocation(@RequestParam("location") String location) {
         return auctionService.findAllByLocation(location);
     }
 
-    @GetMapping(path = "/{price}")
-    public List<AuctionDto> findAllByActualPriceBetween(BigDecimal priceLowerBound, BigDecimal priceUpperBound) {
+    @GetMapping(path = "/price")
+    public List<AuctionDto> findAllByActualPriceBetween(@RequestParam("price") BigDecimal priceLowerBound, BigDecimal priceUpperBound) {
         return auctionService.findAllByActualPriceBetween(priceLowerBound, priceUpperBound);
     }
 
-    @GetMapping(path = "/{auctionId}")
-    public Auction saveAuction(AuctionDto auctionDto) {
+    @PostMapping
+    public Auction saveAuction(@Valid @RequestBody AuctionDto auctionDto) {
         return auctionService.saveAuction(auctionDto);
     }
 
-    @GetMapping(path = "/{auctionId}")
-    public Auction updateAuction(AuctionDto auctionDto, long auctionId) {
+    @PutMapping(path = "/{auctionId}")
+    public Auction updateAuction(@Valid @RequestBody AuctionDto auctionDto, @PathVariable long auctionId) {
         return auctionService.updateAuctionById(auctionDto, auctionId);
     }
 
-    @GetMapping(path = "/{auctionId}")
-    public void deleteAuction(long auctionId) {
+    @DeleteMapping(path = "/{auctionId}")
+    public void deleteAuction(@PathVariable long auctionId) {
         auctionService.removeAuctionById(auctionId);
     }
 }

@@ -1,11 +1,17 @@
 package com.example.demo.domain.model;
 
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @Entity(name = "auctions")
@@ -13,21 +19,24 @@ public class Auction {
     @Id
     @GeneratedValue
     private long id;
-
+    @NotNull
+    @Size(min = 5, max = 50)
     private String title;
-
+    @NotNull
+    @Size(max = 1000)
     private String description;
+    @NotEmpty
     @Enumerated(value = EnumType.STRING)
     private Category category;
-
+    @Min(value = 1)
     private BigDecimal minimumPrice;
-
+    @Min(value = 1)
     private BigDecimal buyNowPrice;
 
     private BigDecimal actualPrice;
 
     private boolean isPromoted;
-
+    @NotEmpty
     private String location;    //z encji User wyciąga miasto i woj.
 
     private LocalDateTime startDateTime;    //data i czas w momencie tworzenia

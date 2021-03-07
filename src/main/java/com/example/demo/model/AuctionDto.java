@@ -17,7 +17,7 @@ public class AuctionDto {
 
     private String description;
 
-    private Category category;
+    private String category;
 
     private BigDecimal minimumPrice;
 
