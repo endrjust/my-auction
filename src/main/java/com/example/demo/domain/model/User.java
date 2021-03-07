@@ -1,12 +1,14 @@
 package com.example.demo.domain.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Data
 @Entity
+@Data
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +31,9 @@ public class User {
     private String postalCode;
 
     private LocalDate created;
+
     @Enumerated(value = EnumType.STRING)
     private AccountStatus accountStatus;
-
 
     @Enumerated(value = EnumType.STRING)
     private AccountType accountType;

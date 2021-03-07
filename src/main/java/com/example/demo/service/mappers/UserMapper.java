@@ -4,9 +4,10 @@ import com.example.demo.domain.model.AccountStatus;
 import com.example.demo.domain.model.AccountType;
 import com.example.demo.domain.model.User;
 import com.example.demo.model.UserDto;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-
+@Component
 public class UserMapper {
 
     public User map(UserDto userDto){

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -18,7 +19,7 @@ public class Bidding {
 
     @ManyToOne
     private User user;
-
+    @NotEmpty
     private BigDecimal offerPrice;
 
     private LocalDateTime offerDateTime;
