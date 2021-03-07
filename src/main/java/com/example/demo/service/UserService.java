@@ -27,9 +27,13 @@ public class UserService {
         return userRepository.findAll().stream().map(user -> userMapper.map(user)).collect(Collectors.toList());
     }
 
-    public void saveUser(UserDto userDto) {
+    public UserDto saveUser(UserDto userDto) {
         User user = userMapper.map(userDto);
-        userRepository.save(user);
+        user.setCreated(LocalDate.now());
+        user.setAccountStatus(AccountStatus.ACTIVE);
+        user.setAccountType(AccountType.STANDARD);
+        return userMapper.map(userRepository.save(user));
+
     }
 
 
@@ -37,7 +41,7 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    public void updateUser(UserDto userDto, long userId) {
+    public UserDto updateUser(UserDto userDto, long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " cannot be found"));
         user.setEmail(userDto.getEmail());
@@ -49,10 +53,14 @@ public class UserService {
         user.setHouseNumber(userDto.getHouseNumber());
         user.setPostalCode(userDto.getPostalCode());
         user.setCreated(LocalDate.now());
-        user.setAccountStatus(AccountStatus.valueOf(userDto.getAccountStatus()));
-        user.setAccountType(AccountType.valueOf(userDto.getAccountType()));
+        if (userDto.getAccountStatus() != null) {
+            user.setAccountStatus(AccountStatus.valueOf(userDto.getAccountStatus().toUpperCase()));
+        }
+        if (userDto.getAccountType() != null) {
+            user.setAccountType(AccountType.valueOf(userDto.getAccountType().toUpperCase()));
+        }
 
-        userRepository.save(user);
+        return userMapper.map(userRepository.save(user));
     }
 
     public UserDto findUser(long userId) {
