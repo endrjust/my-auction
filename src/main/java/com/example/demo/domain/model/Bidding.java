@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@RequiredArgsConstructor
 @NoArgsConstructor
 
 public class Bidding {

@@ -2,13 +2,11 @@ package com.example.demo.service.mappers;
 
 import com.example.demo.domain.model.Bidding;
 import com.example.demo.model.BiddingDto;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Component
 public class BiddingMapper {

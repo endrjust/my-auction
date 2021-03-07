@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import com.example.demo.service.mappers.BiddingMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
