@@ -3,7 +3,7 @@ package com.example.demo.service;
 import com.example.demo.domain.model.Bidding;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.BiddingDto;
-import com.example.demo.repository.BiddingRepository;
+import com.example.demo.domain.repository.BiddingRepository;
 import com.example.demo.service.mappers.BiddingMapper;
 import org.springframework.stereotype.Service;
 
