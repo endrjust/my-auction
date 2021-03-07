@@ -25,10 +25,11 @@ public class UserController {
         return userService.findAll();
     }
 
-    @GetMapping("/users/{userId")
+    @GetMapping("/users/{userId}")
     public UserDto findUser (@PathVariable long userId){
        return userService.findUser(userId);
     }
+
 
     @PostMapping("/users")
     public void saveUser(@RequestBody UserDto userDto){
