@@ -25,7 +25,7 @@ public class Auction {
     @NotNull
     @Size(max = 1000)
     private String description;
-    @NotEmpty
+
     @Enumerated(value = EnumType.STRING)
     private Category category;
     @Min(value = 1)
