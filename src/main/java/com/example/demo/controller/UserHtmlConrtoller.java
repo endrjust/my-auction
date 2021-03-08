@@ -19,10 +19,7 @@ public class UserHtmlConrtoller {
         this.userService = userService;
     }
 
-    @GetMapping("")
-    public String home(){
-        return "index";
-    }
+
 
     @GetMapping("users")
         public String usersPage(Model model){

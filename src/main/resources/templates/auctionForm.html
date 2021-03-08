@@ -63,54 +63,59 @@
     </div>
 </nav>
 
-<form th:action="@{/addUser}" th:object="${newUser}" method="post">
+<form th:action="@{/addAuction}" th:object="${newAuction}" method="post">
 
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">Email </span>
-        <input type="text" th:field="*{email}" class="form-control" placeholder="Email" aria-label="Email"
+        <span class="input-group-text" id="basic-addon1">Title </span>
+        <input type="text" th:field="*{title}" class="form-control" placeholder="Title" aria-label="Title"
                aria-describedby="basic-addon1">
     </div>
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon2">Password</span>
-        <input type="text" th:field="*{password}" class="form-control" placeholder="Password" aria-label="Password"
+        <span class="input-group-text" id="basic-addon2">Description</span>
+        <input type="text" th:field="*{description}" class="form-control" placeholder="Description" aria-label="Description"
                aria-describedby="basic-addon2">
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon3">Repeated password</span>
-        <input type="text" th:field="*{repeatedPassword}" class="form-control" placeholder="Repeatedpassword"
-               aria-label="Repeatedpassword" aria-describedby="basic-addon3">
+        <input type="text" th:field="*{category}" class="form-control" placeholder="Category"
+               aria-label="Category" aria-describedby="basic-addon3">
     </div>
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon4">AccountName</span>
-        <input type="text" th:field="*{accountName}" class="form-control" placeholder="AccountName"
-               aria-label="AccountName" aria-describedby="basic-addon4">
+        <span class="input-group-text" id="basic-addon4">MinimumPrice</span>
+        <input type="text" th:field="*{minimumPrice}" class="form-control" placeholder="MinimumPrice"
+               aria-label="MinimumPrice" aria-describedby="basic-addon4">
     </div>
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon5">Region</span>
-        <input type="text" th:field="*{region}" class="form-control" placeholder="Region"
-               aria-label="Region" aria-describedby="basic-addon5">
+        <span class="input-group-text" id="basic-addon5">BuyNowPrice</span>
+        <input type="text" th:field="*{buyNowPrice}" class="form-control" placeholder="BuyNowPrice"
+               aria-label="BuyNowPrice" aria-describedby="basic-addon5">
     </div>
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon6">City</span>
-        <input type="text" th:field="*{city}" class="form-control" placeholder="City"
-               aria-label="City" aria-describedby="basic-addon6">
+        <span class="input-group-text" id="basic-addon6">ActualPrice</span>
+        <input type="text" th:field="*{actualPrice}" class="form-control" placeholder="ActualPrice"
+               aria-label="ActualPrice" aria-describedby="basic-addon6">
     </div>
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon7">Street</span>
-        <input type="text" th:field="*{street}" class="form-control" placeholder="Street"
-               aria-label="Street" aria-describedby="basic-addon7">
+        <span class="input-group-text" id="basic-addon7">Location</span>
+        <input type="text" th:field="*{location}" class="form-control" placeholder="Location"
+               aria-label="Location" aria-describedby="basic-addon7">
     </div>
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon8">HouseNumber</span>
-        <input type="text" th:field="*{houseNumber}" class="form-control" placeholder="HouseNumber"
-               aria-label="HouseNumber" aria-describedby="basic-addon8">
+        <span class="input-group-text" id="basic-addon8">StartTime</span>
+        <input type="text" th:field="*{startDateTime}" class="form-control" placeholder="StartTime"
+               aria-label="StartTime" aria-describedby="basic-addon8">
     </div>
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon9">PostalCode</span>
-        <input type="text" th:field="*{postalCode}" class="form-control" placeholder="PostalCode"
-               aria-label="PostalCode" aria-describedby="basic-addon9">
+        <span class="input-group-text" id="basic-addon9">EndTime</span>
+        <input type="text" th:field="*{endDateTime}" class="form-control" placeholder="EndTime"
+               aria-label="EndTime" aria-describedby="basic-addon9">
     </div>
-    <p><input type="submit" value="ADD USER"></p>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon10">UserId</span>
+        <input type="text" th:field="*{userId}" class="form-control" placeholder="UserId"
+               aria-label="UserId" aria-describedby="basic-addon10">
+    </div>
+    <p><input type="submit" value="ADD AUCTION"></p>
 
 </form>
 
