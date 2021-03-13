@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.exception.EmailExistsException;
 import com.example.demo.model.UserDto;
 
 import com.example.demo.service.UserService;
@@ -33,7 +34,7 @@ public class UserController {
 
 
     @PostMapping("/users")
-    public UserDto saveUser(@RequestBody UserDto userDto){
+    public UserDto saveUser(@RequestBody UserDto userDto) throws EmailExistsException {
        return  userService.saveUser(userDto);
     }
 

@@ -15,7 +15,7 @@
 <!-- Menu navbar -->
 <div th:insert="~{header::header}"></div>
 
-<table class="table table-striped table-hover" th:each="user: ${users}">
+<table class="table table-striped table-hover">
     <thead>
     <tr>
         <th scope="col">AccountName</th>
@@ -23,7 +23,7 @@
         <th scope="col">Created</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody th:each="user: ${users}">
     <td th:text="${user.getAccountName()}">AccountName</td>
     <td th:text="${user.getCity()}">City</td>
     <td th:text="${user.getCreated()}">City</td>

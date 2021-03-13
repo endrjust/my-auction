@@ -19,17 +19,18 @@
 
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">Email </span>
-        <input type="text" th:field="*{email}" class="form-control" placeholder="Email" aria-label="Email"
+        <input type="hidden" th:field="*{email}" class="form-control" placeholder="Email" aria-label="Email"
                aria-describedby="basic-addon1">
     </div>
+
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon2">Password</span>
-        <input type="text" th:field="*{password}" class="form-control" placeholder="Password" aria-label="Password"
+        <input type="hidden" th:field="*{password}" class="form-control" placeholder="Password" aria-label="Password"
                aria-describedby="basic-addon2">
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon3">Repeated password</span>
-        <input type="text" th:field="*{repeatedPassword}" class="form-control" placeholder="Repeatedpassword"
+        <input type="hidden" th:field="*{repeatedPassword}" class="form-control" placeholder="Repeatedpassword"
                aria-label="Repeatedpassword" aria-describedby="basic-addon3">
     </div>
     <div class="input-group mb-3">
@@ -37,6 +38,8 @@
         <input type="text" th:field="*{accountName}" class="form-control" placeholder="AccountName"
                aria-label="AccountName" aria-describedby="basic-addon4">
     </div>
+    <p th:if="${emptyName}" th:text="${message}"></p>
+    <p th:if="${accountNameExists}" th:text="${message}"></p>
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon5">Region</span>
         <input type="text" th:field="*{region}" class="form-control" placeholder="Region"
