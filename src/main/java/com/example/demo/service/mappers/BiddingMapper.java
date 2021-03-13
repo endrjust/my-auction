@@ -34,8 +34,8 @@ public class BiddingMapper {
 
     public Bidding map(BiddingDto biddingDto) {
         Bidding bidding = new Bidding();
-        bidding.setAuction(auctionMapper.map(auctionService.findAll().stream().findFirst().orElseThrow()));
-        bidding.setUser(userMapper.map(userService.findUser(biddingDto.getUserId())));
+//        bidding.setAuction(auctionMapper.map(auctionService.findAll().stream().findFirst().orElseThrow()));
+//        bidding.setUser(userMapper.map(userService.findUser(biddingDto.getUserId())));
         bidding.setOfferPrice(biddingDto.getOfferPrice());
         bidding.setOfferDateTime(LocalDateTime.now());
         return bidding;

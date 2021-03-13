@@ -16,15 +16,21 @@ public class BiddingService {
 
     private final BiddingRepository biddingRepository;
     private final BiddingMapper biddingMapper;
+    private final UserService userService;
+    private final AuctionService auctionService;
 
-    public BiddingService(BiddingRepository biddingRepository, BiddingMapper biddingMapper) {
+    public BiddingService(BiddingRepository biddingRepository, BiddingMapper biddingMapper, UserService userService, AuctionService auctionService) {
         this.biddingRepository = biddingRepository;
         this.biddingMapper = biddingMapper;
+        this.userService = userService;
+        this.auctionService = auctionService;
     }
 
 
     public void makeBid(BiddingDto biddingDto) {
         Bidding bidding = biddingMapper.map(biddingDto);
+        bidding.setUser(userService.findUserEntity(biddingDto.getUserId()));
+        bidding.setAuction(auctionService.findAuctionById(biddingDto.getAuctionId()));
         bidding.setOfferDateTime(LocalDateTime.now());
         biddingRepository.save(bidding);
     }

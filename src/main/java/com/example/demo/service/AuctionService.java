@@ -81,7 +81,7 @@ public class AuctionService {
     }
 
     public Auction findAuctionById(long auctionId){
-        return auctionRepository.findById(auctionId).stream().findFirst().orElseThrow(()->new AuctionNotFoundException("Auction Not Found"));
+        return auctionRepository.findById(auctionId).orElseThrow(()->new AuctionNotFoundException("Auction Not Found"));
     }
 
     public void removeAuctionById(long auctionId) {

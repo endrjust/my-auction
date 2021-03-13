@@ -68,4 +68,10 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " cannot be found"));
         return userMapper.map(user);
     }
+
+    public User findUserEntity (long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " cannot be found"));
+        return user;
+    }
 }
