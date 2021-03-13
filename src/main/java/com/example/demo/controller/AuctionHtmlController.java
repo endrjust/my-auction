@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.model.Bidding;
+import com.example.demo.domain.model.Category;
 import com.example.demo.exception.AuctionNotFoundException;
 import com.example.demo.model.AuctionDto;
 import com.example.demo.model.BiddingDto;
@@ -61,6 +61,12 @@ public class AuctionHtmlController {
     public String makeBid(@ModelAttribute BiddingDto biddingDto) {
         biddingService.makeBid(biddingDto);
         return "redirect:/";
+    }
+    @GetMapping("/category/{categoryName}")
+    public String findByCategory(@PathVariable("categoryName")String categoryName,Model model ){
+        List<AuctionDto> allByCategory = auctionService.findAllByCategory(Category.valueOf(categoryName));
+        model.addAttribute("auctions",allByCategory);
+        return "index";
     }
 
 }

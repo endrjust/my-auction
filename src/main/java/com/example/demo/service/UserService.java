@@ -38,7 +38,6 @@ public class UserService {
         return userMapper.map(userRepository.save(user));
     }
 
-
     public void deleteUser(long userId) {
         userRepository.deleteById(userId);
     }

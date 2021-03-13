@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
     <title>MyAuction</title>
 </head>
@@ -14,10 +15,21 @@
 <!-- Menu navbar z pliku header.html -->
 <div th:insert="~{header::header}"></div>
 
+<!--Lista kategorii-->
+<ul class="nav flex-column">
+    <li class="nav-item" th:each="category: ${T(com.example.demo.domain.model.Category).values()}">
+        <a class="nav-link active" aria-current="page" th:href="@{/category/{categoryName}(categoryName=${category})}"
+           th:text="${category}"></a>
+    </li>
+
+</ul>
+
+
 <!-- Wyswietlanie aukcji -->
 <div th:each="auction: ${auctions}">
     <div class="d-flex position-relative">
-        <img src="https://www.iconsdb.com/icons/preview/gray/package-2-xxl.png" class="flex-shrink-0 me-3" alt="...">
+        <img src="https://www.iconsdb.com/icons/preview/gray/package-2-xxl.png" class="flex-shrink-0 me-3"
+             alt="Obrazek na stronie głównej">
         <div>
             <h5 class="mt-0" th:text="${auction.getTitle()}"></h5>
             <p th:text="${auction.getDescription()}"></p>
@@ -42,8 +54,9 @@
 </nav>
 
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

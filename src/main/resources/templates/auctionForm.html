@@ -24,13 +24,30 @@
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon2">Description</span>
-        <input type="text" th:field="*{description}" class="form-control" placeholder="Description" aria-label="Description"
+        <input type="text" th:field="*{description}" class="form-control" placeholder="Description"
+               aria-label="Description"
                aria-describedby="basic-addon2">
     </div>
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon3">Repeated password</span>
-        <input type="text" th:field="*{category}" class="form-control" placeholder="Category"
-               aria-label="Category" aria-describedby="basic-addon3">
+        <span class="input-group-text" id="basic-addon3">Category</span>
+
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">Choose category</button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li class="dropdown-item-category"
+                    th:each="category: ${T(com.example.demo.domain.model.Category).values()}">
+                    <a class="dropdown-item" th:text="${category}"></a>
+                </li>
+            </ul>
+
+<!--            <input type="text" th:field="*{category}" class="form-control" placeholder="Category" readonly-->
+<!--                   aria-label="Category" aria-describedby="basic-addon3">-->
+
+        </div>
+
+
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon4">MinimumPrice</span>
@@ -62,16 +79,20 @@
         <input type="text" th:field="*{endDateTime}" class="form-control" placeholder="EndTime"
                aria-label="EndTime" aria-describedby="basic-addon9">
     </div>
+
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon10">UserId</span>
         <input type="text" th:field="*{userId}" class="form-control" placeholder="UserId"
                aria-label="UserId" aria-describedby="basic-addon10">
     </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon11">UserImage</span>
+        <input type="file">
+    </div>
+
     <p><input type="submit" value="ADD AUCTION"></p>
 
 </form>
-
-
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
