@@ -7,11 +7,14 @@ import lombok.Data;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
 public class UserDto {
 
+    @Email(message = "Has to be an email")
     private String email;
 
     private String password;
