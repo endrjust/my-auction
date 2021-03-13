@@ -29,7 +29,7 @@
 <div th:each="auction: ${auctions}">
     <div class="d-flex position-relative">
         <img src="https://www.iconsdb.com/icons/preview/gray/package-2-xxl.png" class="flex-shrink-0 me-3"
-             alt="Obrazek na stronie głównej">
+             alt="zdjęcie przedmiotu">
         <div>
             <h5 class="mt-0" th:text="${auction.getTitle()}"></h5>
             <p th:text="${auction.getDescription()}"></p>
