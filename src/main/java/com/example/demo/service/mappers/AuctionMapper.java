@@ -5,6 +5,8 @@ import com.example.demo.domain.model.Category;
 import com.example.demo.model.AuctionDto;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class AuctionMapper {
     public Auction map(AuctionDto auctionDto) {
@@ -32,4 +34,6 @@ public class AuctionMapper {
         }
         return auctionDto;
     }
+
+
 }

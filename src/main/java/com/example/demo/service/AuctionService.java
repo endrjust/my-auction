@@ -80,6 +80,10 @@ public class AuctionService {
         return auctionRepository.save(auction);
     }
 
+    public Auction findAuctionById(long auctionId){
+        return auctionRepository.findById(auctionId).orElseThrow(()->new AuctionNotFoundException("Auction Not Found"));
+    }
+
     public void removeAuctionById(long auctionId) {
         auctionRepository.deleteById(auctionId);
     }

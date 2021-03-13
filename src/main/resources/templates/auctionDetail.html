@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <title>MyAuction</title>
+</head>
+<body>
+<!-- Menu navbar -->
+<div th:insert="~{header::header}"></div>
+<!-- Wyswietlanie aukcji -->
+<div class="justify-content-center">
+<h1 class th:text="${auction.getTitle()}">Opis aukcji 1</h1>
+<h2 th:text="${auction.getDescription()}"></h2>
+<p th:text="'Lokalizacja ' + ${auction.getLocation()}"></p>
+<p>=============================</p>
+</div>
+<div th:each="bid: ${bids}">
+    <div class="d-flex position-relative">
+        <img src="https://www.iconsdb.com/icons/preview/gray/package-2-xxl.png" class="flex-shrink-0 me-3" alt="...">
+        <div>
+            <p th:text="${bid.getOfferPrice()}"></p>
+            <p th:text="${bid.getOfferDateTime()}"></p>
+        </div>
+    </div>
+</div>
+<p><p>=============================</p></p>
+<div>
+    <form th:action="@{/makeBid}" th:object="${newBid}" method="post">
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">UserId </span>
+            <input type="text" th:field="*{userId}" class="form-control" placeholder="UderId" aria-label="UserId"
+                   aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon2">AuctionId</span>
+            <input type="text" th:field="*{auctionId}" class="form-control" placeholder="AuctionId" aria-label="AuctionId"
+                   aria-describedby="basic-addon2">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">OfferPrice</span>
+            <input type="text" th:field="*{offerPrice}" class="form-control" placeholder="OfferPrice" aria-label="OfferPrice"
+                   aria-describedby="basic-addon2">
+        </div>
+        <p><input type="submit" value="MAKE BID"></p>
+    </form>
+
+</div>
+<!-- Pagination -->
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+</body>
+</html>

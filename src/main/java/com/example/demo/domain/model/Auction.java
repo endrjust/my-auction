@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 public class Auction {
     @Id
     @GeneratedValue
+    @Column(name = "auction_id")
     private long id;
     @NotNull
     @Size(min = 5, max = 50)
@@ -49,4 +51,7 @@ public class Auction {
 
     @ManyToOne
     private User user;
+
+    @OneToMany
+    private List<Bidding> biddingList;
 }
