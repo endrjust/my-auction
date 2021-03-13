@@ -12,54 +12,46 @@
 </head>
 <body>
 <!-- Menu navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">MyAuction</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        MyAccount
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">MyAuctions</a></li>
-                        <li><a class="dropdown-item" href="#">Observed</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" th:href="@{/auctionForm}">Create new auction</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Users
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                        <li><a class="dropdown-item" th:href="@{/userForm}">Add new user</a></li>
-                        <li><a class="dropdown-item" th:href="@{/users}">Users</a></li>
-
-                    </ul>
-                </li>
-
-
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+<div th:insert="~{header::header}"></div>
+<!-- Wyswietlanie aukcji -->
+<div class="justify-content-center">
+<h1 class th:text="${auction.getTitle()}">Opis aukcji 1</h1>
+<h2 th:text="${auction.getDescription()}"></h2>
+<p th:text="'Lokalizacja ' + ${auction.getLocation()}"></p>
+<p>=============================</p>
+</div>
+<div th:each="bid: ${bids}">
+    <div class="d-flex position-relative">
+        <img src="https://www.iconsdb.com/icons/preview/gray/package-2-xxl.png" class="flex-shrink-0 me-3" alt="...">
+        <div>
+            <p th:text="${bid.getOfferPrice()}"></p>
+            <p th:text="${bid.getOfferDateTime()}"></p>
         </div>
     </div>
-</nav>
-<!-- Wyswietlanie aukcji -->
+</div>
+<p><p>=============================</p></p>
+<div>
+    <form th:action="@{/makeBid}" th:object="${newBid}" method="post">
 
-<h1>Tutaj beda szczegoły aukcji</h1>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">UserId </span>
+            <input type="text" th:field="*{userId}" class="form-control" placeholder="UderId" aria-label="UserId"
+                   aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon2">AuctionId</span>
+            <input type="text" th:field="*{auctionId}" class="form-control" placeholder="AuctionId" aria-label="AuctionId"
+                   aria-describedby="basic-addon2">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">OfferPrice</span>
+            <input type="text" th:field="*{offerPrice}" class="form-control" placeholder="OfferPrice" aria-label="OfferPrice"
+                   aria-describedby="basic-addon2">
+        </div>
+        <p><input type="submit" value="MAKE BID"></p>
+    </form>
 
+</div>
 <!-- Pagination -->
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">

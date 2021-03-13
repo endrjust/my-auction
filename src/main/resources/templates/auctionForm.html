@@ -13,55 +13,7 @@
 </head>
 <body>
 <!-- Menu navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">MyAuction</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        MyAccount
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">MyAuctions</a></li>
-                        <li><a class="dropdown-item" href="#">Observed</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" th:href="@{/auctionForm}">Create new auction</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Users
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                        <li><a class="dropdown-item" th:href="@{/userForm}">Add new user</a></li>
-                        <li><a class="dropdown-item" th:href="@{/users}">Users</a></li>
-
-                    </ul>
-                </li>
-
-
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
-    </div>
-</nav>
+<div th:insert="~{header::header}"></div>
 
 <form th:action="@{/addAuction}" th:object="${newAuction}" method="post">
 
