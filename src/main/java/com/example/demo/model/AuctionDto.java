@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuctionDto {
+    private long id;
+
     private String title;
 
     private String description;

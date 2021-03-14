@@ -1,10 +1,14 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.model.Auction;
 import com.example.demo.domain.model.Bidding;
 import com.example.demo.domain.model.User;
+import com.example.demo.exception.TooLowPriceException;
 import com.example.demo.exception.UserNotFoundException;
+import com.example.demo.model.AuctionDto;
 import com.example.demo.model.BiddingDto;
 import com.example.demo.domain.repository.BiddingRepository;
+import com.example.demo.service.mappers.AuctionMapper;
 import com.example.demo.service.mappers.BiddingMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -20,23 +24,31 @@ public class BiddingService {
     private final BiddingMapper biddingMapper;
     private final UserService userService;
     private final AuctionService auctionService;
+    private final AuctionMapper auctionMapper;
 
-    public BiddingService(BiddingRepository biddingRepository, BiddingMapper biddingMapper, UserService userService, AuctionService auctionService) {
+    public BiddingService(BiddingRepository biddingRepository, BiddingMapper biddingMapper, UserService userService, AuctionService auctionService, AuctionMapper auctionMapper) {
         this.biddingRepository = biddingRepository;
         this.biddingMapper = biddingMapper;
         this.userService = userService;
         this.auctionService = auctionService;
+        this.auctionMapper = auctionMapper;
     }
 
 
-    public void makeBid(BiddingDto biddingDto) {
+    public void makeBid(BiddingDto biddingDto) throws TooLowPriceException {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        AuctionDto auctionDto =auctionMapper.map( auctionService.findAuctionById(biddingDto.getAuctionId()));
+
+        if (biddingDto.getOfferPrice().compareTo(auctionDto.getActualPrice()) <= 0 ){
+            throw new TooLowPriceException("Offered rice has to be higher than actual price.");
+        }
+        auctionDto.setActualPrice(biddingDto.getOfferPrice());
         Bidding bidding = biddingMapper.map(biddingDto);
         bidding.setUser(user);
         bidding.setAuction(auctionService.findAuctionById(biddingDto.getAuctionId()));
         bidding.setOfferDateTime(LocalDateTime.now());
 
-
+       auctionService.updateAuctionById(auctionDto, biddingDto.getAuctionId());
         biddingRepository.save(bidding);
     }
 
@@ -54,6 +66,7 @@ public class BiddingService {
         bidding.setOfferPrice(biddingDto.getOfferPrice());
         bidding.setOfferDateTime(biddingDto.getOfferDateTime());
         bidding.setId(biddingDto.getUserId());
+
         biddingRepository.save(bidding);
     }
 

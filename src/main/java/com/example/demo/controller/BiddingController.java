@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.model.Bidding;
+import com.example.demo.exception.TooLowPriceException;
 import com.example.demo.model.BiddingDto;
 import com.example.demo.service.BiddingService;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class BiddingController {
 
 
     @PostMapping
-    public void makeBid(@RequestBody BiddingDto biddingDto) {
+    public void makeBid(@RequestBody BiddingDto biddingDto) throws TooLowPriceException {
         biddingService.makeBid(biddingDto);
     }
 
