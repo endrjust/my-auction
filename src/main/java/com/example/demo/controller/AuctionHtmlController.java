@@ -46,13 +46,13 @@ public class AuctionHtmlController {
     }
 
     @GetMapping("auctionForm")
-    public String addUser(Model model) {
+    public String addAuctionForm(Model model) {
         model.addAttribute("newAuction", new AuctionDto());
         return "auctionForm";
     }
 
     @PostMapping("addAuction")
-    public String addUser(@ModelAttribute AuctionDto auctionDto) {
+    public String addAuctionPost(@ModelAttribute AuctionDto auctionDto) {
         auctionService.saveAuction(auctionDto);
         return "redirect:auctionForm";
     }
