@@ -88,6 +88,7 @@ public class AuctionService {
         auction.setTitle(auctionDto.getTitle());
         auction.setDescription(auctionDto.getDescription());
         auction.setMinimumPrice(auctionDto.getMinimumPrice());
+        auction.setActualPrice(auctionDto.getActualPrice());
         auction.setBuyNowPrice(auctionDto.getBuyNowPrice());
 
         return auctionRepository.save(auction);

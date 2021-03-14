@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.model.Auction;
 import com.example.demo.domain.model.Category;
+import com.example.demo.exception.AuctionNotFoundException;
+import com.example.demo.exception.TooLowPriceException;
 import com.example.demo.model.AuctionDto;
 import com.example.demo.model.BiddingDto;
 import com.example.demo.service.AuctionService;
@@ -35,9 +37,12 @@ public class AuctionHtmlController {
     }
 
     @GetMapping("/auctionDetail/{auctionId}")
-    public String auctionDetails(Model model, @PathVariable long auctionId) {
+    public String auctionDetails(Model model, @PathVariable long auctionId, @RequestParam(required = false) boolean offerBidTooLow) {
         Auction auctionById = auctionService.findAuctionById(auctionId);
         Iterable<BiddingDto> allBids = biddingService.findAllBids();
+        if(offerBidTooLow){
+            model.addAttribute("tooLowPrice", true);
+        }
         model.addAttribute("auction", auctionById);
         model.addAttribute("newBid", new BiddingDto());
         model.addAttribute("auctionId", auctionById.getId());
@@ -59,10 +64,15 @@ public class AuctionHtmlController {
     }
 
     @PostMapping("/makeBid/{auctionId}")
-    public String makeBid(@PathVariable long auctionId, @ModelAttribute BiddingDto biddingDto) {
-        biddingDto.setAuctionId(auctionId);
-        biddingService.makeBid(biddingDto);
-        return "redirect:/auctionDetail/" + auctionId;
+    public String makeBid(@PathVariable long auctionId, @ModelAttribute BiddingDto biddingDto, Model model) {
+        try {
+            biddingDto.setAuctionId(auctionId);
+            biddingService.makeBid(biddingDto);
+            return "redirect:/auctionDetail/" + auctionId;
+        } catch (TooLowPriceException e) {
+            return "redirect:/auctionDetail/" + auctionId + "?offerBidTooLow=true";
+        }
+
     }
 
     @GetMapping("/category/{categoryName}")

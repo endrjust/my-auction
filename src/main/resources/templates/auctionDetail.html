@@ -45,16 +45,12 @@
     <form th:action="@{/makeBid/__${auctionId}__}" th:object="${newBid}" method="post">
 
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">UserId </span>
-            <input type="text" th:field="*{userId}" class="form-control" placeholder="UderId" aria-label="UserId"
-                   aria-describedby="basic-addon1">
-        </div>
-        <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon3">OfferPrice</span>
             <input type="text" th:field="*{offerPrice}" class="form-control" placeholder="OfferPrice"
                    aria-label="OfferPrice"
                    aria-describedby="basic-addon2">
         </div>
+        <p th:if="${tooLowPrice}">Offered price has to be higher than actual price</p>
         <p><input type="submit" value="MAKE BID"></p>
     </form>
 
