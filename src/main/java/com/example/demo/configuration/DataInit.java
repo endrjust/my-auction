@@ -28,7 +28,6 @@ public class DataInit {
         user.setPassword("pass");
         user.setCity("torun");
         user.setEmail("lukasz123@gmail.com");
-
         user.setStreet("XXX");
         user.setAccountStatus(AccountStatus.ACTIVE);
         user.setAccountType(AccountType.PREMIUM);
@@ -44,5 +43,4 @@ public class DataInit {
         auction.setLocation("Torun");
         auctionRepository.save(auction);
     }
-
 }

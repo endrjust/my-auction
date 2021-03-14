@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
 
     private UserService userService;
@@ -20,28 +20,28 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public List<UserDto> getAll(){
         return userService.findAll();
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/{userId}")
     public UserDto findUser (@PathVariable long userId){
        return userService.findUser(userId);
     }
 
 
-    @PostMapping("/users")
+    @PostMapping
     public UserDto saveUser(@RequestBody UserDto userDto) throws EmailExistsException {
        return  userService.saveUser(userDto);
     }
 
-    @DeleteMapping("/Users/{userId}")
+    @DeleteMapping("/{userId}")
     public void deleteUSer(@PathVariable long userId){
         userService.deleteUser(userId);
     }
 
-    @PutMapping("/users/{userId}")
+    @PutMapping("/{userId}")
         public void updateUser(@RequestBody UserDto userDto, @PathVariable long userId){
         userService.updateUser(userDto, userId);
 

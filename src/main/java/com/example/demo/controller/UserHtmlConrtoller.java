@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -23,15 +22,12 @@ public class UserHtmlConrtoller {
         this.userService = userService;
     }
 
-
-
     @GetMapping("/users")
-        public String allUsers(Model model){
+    public String allUsers(Model model) {
         List<UserDto> usersList = userService.findAll();
         model.addAttribute("users", usersList);
         return "users";
     }
-
 
     @PostMapping("/addUser")
     public String addUser(@ModelAttribute UserDto userDto, Model model) {
@@ -42,25 +38,25 @@ public class UserHtmlConrtoller {
             return "redirect:/";
         } catch (InvalidRegistrationDataException e) {
             model.addAttribute("newUser", userDto);
-            model.addAttribute("emptyName" , true);
+            model.addAttribute("emptyName", true);
             model.addAttribute("message", e.getMessage());
             return "userForm";
         } catch (AccountNameExistsException e) {
             model.addAttribute("newUser", userDto);
-            model.addAttribute("accountNameExists" , true);
+            model.addAttribute("accountNameExists", true);
             model.addAttribute("message", e.getMessage());
             return "userForm";
         }
     }
 
     @GetMapping("/registerUser")
-    public String registerUser(Model model){
+    public String registerUser(Model model) {
         model.addAttribute("newUser", new UserDto());
         return "registerUser";
     }
 
     @PostMapping("/registerNewUser")
-    public String registerUser(@ModelAttribute UserDto userDto, Model model){
+    public String registerUser(@ModelAttribute UserDto userDto, Model model) {
         try {
             userService.validateUserRegistration(userDto);
             model.addAttribute("newUser", userDto);
