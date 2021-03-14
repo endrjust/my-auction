@@ -23,6 +23,7 @@ public class AuctionMapper {
 
     public AuctionDto map(Auction auction) {
         AuctionDto auctionDto = new AuctionDto();
+        auctionDto.setId(auction.getId());
         auctionDto.setTitle(auction.getTitle());
         auctionDto.setDescription(auction.getDescription());
         auctionDto.setCategory(auction.getCategory().toString());
