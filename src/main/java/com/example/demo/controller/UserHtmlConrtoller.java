@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.AccountNameExistsException;
+import com.example.demo.exception.EmailExistsException;
+import com.example.demo.exception.InvalidRegistrationDataException;
 import com.example.demo.model.UserDto;
 import com.example.demo.service.UserService;
 import org.springframework.stereotype.Controller;
