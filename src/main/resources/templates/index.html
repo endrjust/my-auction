@@ -26,14 +26,14 @@
 
 
 <!-- Wyswietlanie aukcji -->
-<div th:each="auction: ${auctions}">
+<div th:each="auction: ${auctionss}">
     <div class="d-flex position-relative">
         <img src="https://www.iconsdb.com/icons/preview/gray/package-2-xxl.png" class="flex-shrink-0 me-3"
              alt="zdjęcie przedmiotu">
         <div>
             <h5 class="mt-0" th:text="${auction.getTitle()}"></h5>
             <p th:text="${auction.getDescription()}"></p>
-            <a th:href="@{/auctionDetail/__${auction.getTitle()}__}" class="stretched-link">More details...</a>
+            <a th:href="@{/auctionDetail/{auctionId}(auctionId=${auction.getId()})}" class="stretched-link">More details...</a>
         </div>
     </div>
 </div>

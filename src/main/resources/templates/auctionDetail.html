@@ -19,7 +19,7 @@
     <h1 class th:text="${auction.getTitle()}">Opis aukcji 1</h1>
     <h2 th:text="${auction.getDescription()}"></h2>
     <p th:text="'Lokalizacja ' + ${auction.getLocation()}"></p>
-    <p th:text="'Użytkownik ' + ${auction.getAccountName()}"></p>
+    <p th:text="'Użytkownik ' + ${auction.getUser().getAccountName()}"></p>
     <p th:text="'Kategoria ' + ${auction.getCategory()}"></p>
     <p th:text="'Start aukcji ' + ${auction.getStartDateTime()}"></p>
     <p th:text="'Koniec aukcji ' + ${auction.getEndDateTime()}"></p>
@@ -42,18 +42,12 @@
 <p>
 <p>=============================</p></p>
 <div>
-    <form th:action="@{/makeBid}" th:object="${newBid}" method="post">
+    <form th:action="@{/makeBid/__${auctionId}__}" th:object="${newBid}" method="post">
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">UserId </span>
             <input type="text" th:field="*{userId}" class="form-control" placeholder="UderId" aria-label="UserId"
                    aria-describedby="basic-addon1">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon2">AuctionId</span>
-            <input type="text" th:field="*{auctionId}" class="form-control" placeholder="AuctionId"
-                   aria-label="AuctionId"
-                   aria-describedby="basic-addon2">
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon3">OfferPrice</span>

@@ -22,14 +22,14 @@ public class AuctionController {
     }
 
     @GetMapping
-    public List<AuctionDto> findAll() {
-        return auctionService.findAll();
+    public List<Auction> findAll() {
+        return auctionService.findAllEntities();
     }
 
     @GetMapping(path = "/category")
-    public List<AuctionDto> findAllByCategory(@RequestParam("category") String category) {
+    public List<Auction> findAllByCategory(@RequestParam("category") String category) {
         Category parsed = Category.valueOf(category.toUpperCase());
-        return auctionService.findAllByCategory(parsed);
+        return auctionService.findAllByCategoryEntities(parsed);
     }
 
     @GetMapping(path = "/accountName")

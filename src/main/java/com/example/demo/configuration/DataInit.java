@@ -3,6 +3,7 @@ package com.example.demo.configuration;
 import com.example.demo.domain.model.*;
 import com.example.demo.domain.repository.AuctionRepository;
 import com.example.demo.domain.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -12,10 +13,12 @@ import java.math.BigDecimal;
 public class DataInit {
    private final AuctionRepository auctionRepository;
    private final UserRepository userRepository;
+   private final PasswordEncoder passwordEncoder;
 
-    public DataInit(AuctionRepository auctionRepository, UserRepository userRepository) {
+    public DataInit(AuctionRepository auctionRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.auctionRepository = auctionRepository;
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
@@ -23,6 +26,7 @@ public class DataInit {
         User user = new User();
         user.setAccountName("lukasz123");
         user.setPassword("pass");
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCity("torun");
         user.setEmail("lukasz123@gmail.com");
         user.setStreet("XXX");

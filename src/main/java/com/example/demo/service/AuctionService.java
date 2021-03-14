@@ -25,16 +25,25 @@ public class AuctionService {
         this.auctionMapper = auctionMapper;
     }
 
+    public List<Auction> findAllEntities() {
+        return auctionRepository.findAll();
+    }
+
     public List<AuctionDto> findAll() {
         return auctionRepository.findAll().stream()
                 .map(auctionMapper::map).collect(Collectors.toList());
     }
 
-    public List<AuctionDto> findAllByCategory(Category category) {
+        public List<AuctionDto> findAllByCategory(Category category) {
         return auctionRepository.findAllByCategory(category).stream()
                 .map(auctionMapper::map).collect(Collectors.toList());
 
     }
+    public List<Auction> findAllByCategoryEntities(Category category) {
+        return auctionRepository.findAllByCategory(category);
+
+    }
+
 
     public List<AuctionDto> findAllByUser(String accountName) {
         return auctionRepository.findAllByUser(accountName).stream()
@@ -79,8 +88,8 @@ public class AuctionService {
         return auctionRepository.save(auction);
     }
 
-    public Auction findAuctionById(long auctionId){
-        return auctionRepository.findById(auctionId).orElseThrow(()->new AuctionNotFoundException("Auction Not Found"));
+    public Auction findAuctionById(long auctionId) {
+        return auctionRepository.findById(auctionId).orElseThrow(() -> new AuctionNotFoundException("Auction Not Found"));
     }
 
     public void removeAuctionById(long auctionId) {

@@ -32,6 +32,7 @@ public class BiddingService {
         bidding.setUser(userService.findUserEntity(biddingDto.getUserId()));
         bidding.setAuction(auctionService.findAuctionById(biddingDto.getAuctionId()));
         bidding.setOfferDateTime(LocalDateTime.now());
+
         biddingRepository.save(bidding);
     }
 

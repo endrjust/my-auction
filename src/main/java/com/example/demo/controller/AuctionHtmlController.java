@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.model.Auction;
 import com.example.demo.domain.model.Category;
 import com.example.demo.exception.AuctionNotFoundException;
 import com.example.demo.model.AuctionDto;
@@ -28,19 +29,18 @@ public class AuctionHtmlController {
 
     @GetMapping("/")
     public String home(Model model) {
-        List<AuctionDto> auctionsList = auctionService.findAll();
-        model.addAttribute("auctions", auctionsList);
+        List<Auction> auctionsList = auctionService.findAllEntities();
+        model.addAttribute("auctionss", auctionsList);
         return "index";
     }
 
-    @GetMapping("/auctionDetail/{auctionTitle}")
-    public String auctionDetails(Model model, @PathVariable String auctionTitle) {
-        AuctionDto auctionDto = auctionService.findAllByTitle(auctionTitle).
-                stream().findFirst().orElseThrow(() -> new AuctionNotFoundException("Auction not exists"));
+    @GetMapping("/auctionDetail/{auctionId}")
+    public String auctionDetails(Model model, @PathVariable long auctionId) {
+        Auction auctionById = auctionService.findAuctionById(auctionId);
         Iterable<BiddingDto> allBids = biddingService.findAllBids();
-        model.addAttribute("auction", auctionDto);
+        model.addAttribute("auction", auctionById);
         model.addAttribute("newBid", new BiddingDto());
-        model.addAttribute("auctionTitle", auctionDto.getTitle());
+        model.addAttribute("auctionId", auctionById.getId());
         model.addAttribute("bids", allBids);
         return "auctionDetail";
     }
@@ -57,15 +57,17 @@ public class AuctionHtmlController {
         return "redirect:auctionForm";
     }
 
-    @PostMapping("makeBid")
-    public String makeBid(@ModelAttribute BiddingDto biddingDto) {
+    @PostMapping("makeBid/{auctionId}")
+    public String makeBid(@PathVariable long auctionId, @ModelAttribute BiddingDto biddingDto) {
+        biddingDto.setAuctionId(auctionId);
         biddingService.makeBid(biddingDto);
-        return "redirect:/";
+        return "redirect:/auctionDetail/" + auctionId;
     }
+
     @GetMapping("/category/{categoryName}")
-    public String findByCategory(@PathVariable("categoryName")String categoryName,Model model ){
-        List<AuctionDto> allByCategory = auctionService.findAllByCategory(Category.valueOf(categoryName));
-        model.addAttribute("auctions",allByCategory);
+    public String findByCategory(@PathVariable("categoryName") Category categoryName, Model model) {
+        List<Auction> allByCategory = auctionService.findAllByCategoryEntities(categoryName);
+        model.addAttribute("auctionss", allByCategory);
         return "index";
     }
 
