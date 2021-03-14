@@ -21,20 +21,20 @@ public class UserHtmlConrtoller {
 
 
 
-    @GetMapping("users")
+    @GetMapping("/users")
         public String usersPage(Model model){
         List<UserDto> usersList = userService.findAll();
         model.addAttribute("users", usersList);
         return "users";
     }
 
-    @GetMapping("userForm")
+    @GetMapping("/userForm")
     public String addUser(Model model) {
         model.addAttribute("newUser",new UserDto());
         return "userForm";
     }
 
-    @PostMapping("addUser")
+    @PostMapping("/addUser")
     public String addUser(@ModelAttribute UserDto userDto) {
         userService.saveUser(userDto);
         return "redirect:userForm";

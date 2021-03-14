@@ -7,6 +7,10 @@ import com.example.demo.domain.repository.UserRepository;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.UserDto;
 import com.example.demo.service.mappers.UserMapper;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -14,11 +18,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class UserService {
+public class UserService implements UserDetailsService {
+    private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
     private UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserMapper userMapper) {
+        this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }
@@ -32,6 +38,7 @@ public class UserService {
         user.setCreated(LocalDate.now());
         user.setAccountStatus(AccountStatus.ACTIVE);
         user.setAccountType(AccountType.STANDARD);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userMapper.map(userRepository.save(user));
 
     }
@@ -72,5 +79,10 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " cannot be found"));
         return user;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmail(email);
     }
 }
