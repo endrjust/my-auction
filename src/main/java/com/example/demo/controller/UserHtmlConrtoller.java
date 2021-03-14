@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -25,25 +26,20 @@ public class UserHtmlConrtoller {
 
 
     @GetMapping("/users")
-        public String usersPage(Model model){
+        public String allUsers(Model model){
         List<UserDto> usersList = userService.findAll();
         model.addAttribute("users", usersList);
         return "users";
     }
 
-    @GetMapping("/userForm")
-    public String addUser(Model model) {
-        model.addAttribute("newUser",new UserDto());
-        return "userForm";
-    }
 
-    @PostMapping("addUser")
+    @PostMapping("/addUser")
     public String addUser(@ModelAttribute UserDto userDto, Model model) {
 
         try {
             userService.validateUserMoreDetails(userDto);
             userService.saveUser(userDto);
-            return "redirect:users";
+            return "redirect:/";
         } catch (InvalidRegistrationDataException e) {
             model.addAttribute("newUser", userDto);
             model.addAttribute("emptyName" , true);
@@ -57,13 +53,13 @@ public class UserHtmlConrtoller {
         }
     }
 
-    @GetMapping("registerUser")
+    @GetMapping("/registerUser")
     public String registerUser(Model model){
         model.addAttribute("newUser", new UserDto());
         return "registerUser";
     }
 
-    @PostMapping("registerNewUser")
+    @PostMapping("/registerNewUser")
     public String registerUser(@ModelAttribute UserDto userDto, Model model){
         try {
             userService.validateUserRegistration(userDto);

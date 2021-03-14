@@ -11,24 +11,24 @@ import java.math.BigDecimal;
 
 @Service
 public class DataInit {
-   private final AuctionRepository auctionRepository;
-   private final UserRepository userRepository;
-   private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
+    private final AuctionRepository auctionRepository;
+    private final UserRepository userRepository;
 
-    public DataInit(AuctionRepository auctionRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public DataInit(PasswordEncoder passwordEncoder, AuctionRepository auctionRepository, UserRepository userRepository) {
+        this.passwordEncoder = passwordEncoder;
         this.auctionRepository = auctionRepository;
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
         User user = new User();
         user.setAccountName("lukasz123");
         user.setPassword("pass");
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCity("torun");
         user.setEmail("lukasz123@gmail.com");
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setStreet("XXX");
         user.setAccountStatus(AccountStatus.ACTIVE);
         user.setAccountType(AccountType.PREMIUM);

@@ -9,14 +9,12 @@ import com.example.demo.service.AuctionService;
 import com.example.demo.service.BiddingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
+//@RequestMapping("/auction")
 public class AuctionHtmlController {
 
     AuctionService auctionService;
@@ -27,8 +25,8 @@ public class AuctionHtmlController {
         this.biddingService = biddingService;
     }
 
-    @GetMapping("/")
-    public String home(Model model) {
+    @GetMapping("/auctions")
+    public String allAuctions(Model model) {
         List<Auction> auctionsList = auctionService.findAllEntities();
         model.addAttribute("auctionss", auctionsList);
         return "index";
@@ -45,19 +43,19 @@ public class AuctionHtmlController {
         return "auctionDetail";
     }
 
-    @GetMapping("auctionForm")
+    @GetMapping("/auctionForm")
     public String addAuctionForm(Model model) {
         model.addAttribute("newAuction", new AuctionDto());
         return "auctionForm";
     }
 
-    @PostMapping("addAuction")
+    @PostMapping("/addAuction")
     public String addAuctionPost(@ModelAttribute AuctionDto auctionDto) {
         auctionService.saveAuction(auctionDto);
         return "redirect:auctionForm";
     }
 
-    @PostMapping("makeBid/{auctionId}")
+    @PostMapping("/makeBid/{auctionId}")
     public String makeBid(@PathVariable long auctionId, @ModelAttribute BiddingDto biddingDto) {
         biddingDto.setAuctionId(auctionId);
         biddingService.makeBid(biddingDto);
