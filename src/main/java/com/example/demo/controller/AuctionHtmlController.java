@@ -2,19 +2,21 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.model.Auction;
 import com.example.demo.domain.model.Category;
-import com.example.demo.exception.AuctionNotFoundException;
 import com.example.demo.model.AuctionDto;
 import com.example.demo.model.BiddingDto;
 import com.example.demo.service.AuctionService;
 import com.example.demo.service.BiddingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
-//@RequestMapping("/auction")
 public class AuctionHtmlController {
 
     AuctionService auctionService;
@@ -28,7 +30,7 @@ public class AuctionHtmlController {
     @GetMapping("/auctions")
     public String allAuctions(Model model) {
         List<Auction> auctionsList = auctionService.findAllEntities();
-        model.addAttribute("auctionss", auctionsList);
+        model.addAttribute("auctions", auctionsList);
         return "index";
     }
 
@@ -45,6 +47,7 @@ public class AuctionHtmlController {
 
     @GetMapping("/auctionForm")
     public String addAuctionForm(Model model) {
+//        model.addAttribute("localDateTime", LocalDateTime.now());
         model.addAttribute("newAuction", new AuctionDto());
         return "auctionForm";
     }
@@ -65,8 +68,7 @@ public class AuctionHtmlController {
     @GetMapping("/category/{categoryName}")
     public String findByCategory(@PathVariable("categoryName") Category categoryName, Model model) {
         List<Auction> allByCategory = auctionService.findAllByCategoryEntities(categoryName);
-        model.addAttribute("auctionss", allByCategory);
+        model.addAttribute("auctions", allByCategory);
         return "index";
     }
-
 }
