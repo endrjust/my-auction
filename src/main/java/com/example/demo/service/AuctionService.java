@@ -37,11 +37,12 @@ public class AuctionService {
                 .map(auctionMapper::map).collect(Collectors.toList());
     }
 
-        public List<AuctionDto> findAllByCategory(Category category) {
+    public List<AuctionDto> findAllByCategory(Category category) {
         return auctionRepository.findAllByCategory(category).stream()
                 .map(auctionMapper::map).collect(Collectors.toList());
 
     }
+
     public List<Auction> findAllByCategoryEntities(Category category) {
         return auctionRepository.findAllByCategory(category);
 
@@ -68,14 +69,12 @@ public class AuctionService {
                 .map(auctionMapper::map).collect(Collectors.toList());
     }
 
-    //wyszuk po id
-
     public Auction saveAuction(AuctionDto auctionDto) {
         Auction auction = auctionMapper.map(auctionDto);
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        LocalDateTime now = LocalDateTime.now();
-        auction.setStartDateTime(now);
-        auction.setEndDateTime(now.plusDays(7L));
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //LocalDateTime now = LocalDateTime.now();
+        auction.setStartDateTime(auctionDto.getStartDateTime());
+        auction.setEndDateTime(auctionDto.getStartDateTime().plusDays(7L));
         auction.setUser(user);
         //todo auction.setUser(auctionDto.getAccountName());
         return auctionRepository.save(auction);
@@ -90,7 +89,6 @@ public class AuctionService {
         auction.setMinimumPrice(auctionDto.getMinimumPrice());
         auction.setActualPrice(auctionDto.getActualPrice());
         auction.setBuyNowPrice(auctionDto.getBuyNowPrice());
-
         return auctionRepository.save(auction);
     }
 

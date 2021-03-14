@@ -10,10 +10,7 @@ import com.example.demo.service.AuctionService;
 import com.example.demo.service.BiddingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -52,7 +49,6 @@ public class AuctionHtmlController {
 
     @GetMapping("/auctionForm")
     public String addAuctionForm(Model model) {
-//        model.addAttribute("localDateTime", LocalDateTime.now());
         model.addAttribute("newAuction", new AuctionDto());
         return "auctionForm";
     }
