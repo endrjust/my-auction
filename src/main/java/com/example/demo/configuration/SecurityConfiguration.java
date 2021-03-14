@@ -14,6 +14,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//       http.authorizeRequests()
+//               .antMatchers(HttpMethod.POST,"/")
+//               .authenticated()
+//               .antMatchers("/login*")
+//               .permitAll()
+//               .antMatchers("/app/*")
+//               .authenticated();
+
         http.authorizeRequests()
                 .antMatchers("/", "/auctions", "/auctionDetail/*", "/category/*")
                 .permitAll()

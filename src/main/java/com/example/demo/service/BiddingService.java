@@ -1,10 +1,12 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.model.Bidding;
+import com.example.demo.domain.model.User;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.BiddingDto;
 import com.example.demo.domain.repository.BiddingRepository;
 import com.example.demo.service.mappers.BiddingMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,10 +30,12 @@ public class BiddingService {
 
 
     public void makeBid(BiddingDto biddingDto) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Bidding bidding = biddingMapper.map(biddingDto);
-        bidding.setUser(userService.findUserEntity(biddingDto.getUserId()));
+        bidding.setUser(user);
         bidding.setAuction(auctionService.findAuctionById(biddingDto.getAuctionId()));
         bidding.setOfferDateTime(LocalDateTime.now());
+
 
         biddingRepository.save(bidding);
     }
