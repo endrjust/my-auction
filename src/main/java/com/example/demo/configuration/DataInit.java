@@ -28,10 +28,11 @@ public class DataInit {
         user.setPassword("pass");
         user.setCity("torun");
         user.setEmail("lukasz123@gmail.com");
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         user.setStreet("XXX");
         user.setAccountStatus(AccountStatus.ACTIVE);
         user.setAccountType(AccountType.PREMIUM);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user = userRepository.save(user);
         Auction auction = new Auction();
         auction.setTitle("aukcja1");
