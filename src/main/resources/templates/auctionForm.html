@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-    <title>MyAuction</title>
+    <title>Add new auction</title>
 </head>
 <body>
 <!-- Menu navbar -->
@@ -18,75 +18,72 @@
 <form th:action="@{/addAuction}" th:object="${newAuction}" method="post">
 
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">Title </span>
-        <input type="text" th:field="*{title}" class="form-control" placeholder="Title" aria-label="Title"
+        <span class="input-group-text" id="basic-addon1">Item name </span>
+        <input type="text" th:field="*{title}" class="form-control"
+               placeholder="Write what you want to sell (min 5 & max 50 characters)" aria-label="Title"
                aria-describedby="basic-addon1">
     </div>
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon2">Description</span>
-        <input type="text" th:field="*{description}" class="form-control" placeholder="Description"
+        <span class="input-group-text" id="basic-addon2">Item description</span>
+        <input type="text" th:field="*{description}" class="form-control"
+               placeholder="Say sth more about your item (max 1000 characters)"
                aria-label="Description"
                aria-describedby="basic-addon2">
     </div>
 
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon3">Category</span>
-
-
+        <span class="input-group-text" id="basic-addon3">Choose category from list</span>
         <select class="form-select" aria-label="Default select example" th:field="*{category}">
             <option th:each="category: ${T(com.example.demo.domain.model.Category).values()}"
-                    th:value="${category.name()}" th:text="${category.name()}">
+                    th:value="${category.name()}" th:text="${category.name()}"
+                    aria-label="Description"
+                    aria-describedby="basic-addon3">
             </option>
-
         </select>
-
-        <!--        <input type="text" th:field="*{category}" class="form-control" placeholder="Category"-->
-        <!--               aria-label="Category" aria-describedby="basic-addon3">-->
     </div>
-
 
     </div>
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon4">MinimumPrice</span>
-        <input type="text" th:field="*{minimumPrice}" class="form-control" placeholder="MinimumPrice"
+        <span class="input-group-text" id="basic-addon4">Minimal price</span>
+        <input type="text" th:field="*{minimumPrice}" class="form-control" placeholder="0.00 PLN"
                aria-label="MinimumPrice" aria-describedby="basic-addon4">
     </div>
+    <!--    buy now ma być większy niż min price-->
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon5">BuyNowPrice</span>
-        <input type="text" th:field="*{buyNowPrice}" class="form-control" placeholder="BuyNowPrice"
+        <span class="input-group-text" id="basic-addon5">Buy now price</span>
+        <input type="text" th:field="*{buyNowPrice}" class="form-control" placeholder="0.00 PLN"
                aria-label="BuyNowPrice" aria-describedby="basic-addon5">
     </div>
+
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon6">ActualPrice</span>
-        <input type="text" th:field="*{actualPrice}" class="form-control" placeholder="ActualPrice"
-               aria-label="ActualPrice" aria-describedby="basic-addon6">
+        <span class="input-group-text" id="basic-addon6">Location</span>
+        <input type="text" th:field="*{location}" class="form-control" placeholder="Write your location"
+               aria-label="Location" aria-describedby="basic-addon6">
     </div>
+
+    <!--       lista do wyboru: dziś, za 1,2,3,4,5 dni-->
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon7">Location</span>
-        <input type="text" th:field="*{location}" class="form-control" placeholder="Location"
-               aria-label="Location" aria-describedby="basic-addon7">
+        <span class="input-group-text" id="basic-addon7">Start time</span>
+        <input type="datetime-local" th:field="*{startDateTime}" class="form-control" placeholder="Choose from calendar"
+               aria-label="StartTime" aria-describedby="basic-addon7">
     </div>
+
+
+    <!--     automatycznie dodaj 7dni-->
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon8">StartTime</span>
-        <input type="text" th:field="*{startDateTime}" class="form-control" placeholder="StartTime"
-               aria-label="StartTime" aria-describedby="basic-addon8">
-    </div>
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon9">EndTime</span>
-        <input type="text" th:field="*{endDateTime}" class="form-control" placeholder="EndTime"
-               aria-label="EndTime" aria-describedby="basic-addon9">
+        <span class="input-group-text" id="basic-addon8">End time</span>
+        <input type="text" th:field="*{endDateTime}" class="form-control" placeholder="after 7 days"
+               aria-label="EndTime" aria-describedby="basic-addon8" readonly>
     </div>
 
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon10">UserId</span>
-        <input type="text" th:field="*{userId}" class="form-control" placeholder="UserId"
-               aria-label="UserId" aria-describedby="basic-addon10">
-    </div>
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon11">UserImage</span>
-        <input type="file">
+        <span class="input-group-text" id="basic-addon9">Item image</span>
+        <input type="text" th:field="*{itemImageUrl}" class="form-control" placeholder="Paste your image url here"
+               aria-label="Item image" aria-describedby="basic-addon9">
+        <!--        link do obrazka-->
     </div>
 
+    <!--inny guzik-->
     <p><input type="submit" value="ADD AUCTION"></p>
 
 </form>

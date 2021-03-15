@@ -4,8 +4,6 @@ import com.example.demo.domain.model.Auction;
 import com.example.demo.domain.model.Category;
 import com.example.demo.domain.model.User;
 import com.example.demo.domain.repository.AuctionRepository;
-import com.example.demo.exception.AuctionException;
-import com.example.demo.exception.AuctionIsFinishedException;
 import com.example.demo.exception.AuctionNotFoundException;
 import com.example.demo.model.AuctionDto;
 import com.example.demo.service.mappers.AuctionMapper;
@@ -74,10 +72,10 @@ public class AuctionService {
 
     public Auction saveAuction(AuctionDto auctionDto) {
         Auction auction = auctionMapper.map(auctionDto);
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        LocalDateTime now = LocalDateTime.now();
-        auction.setStartDateTime(now);
-        auction.setEndDateTime(now.plusDays(7L));
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //LocalDateTime now = LocalDateTime.now();
+        auction.setStartDateTime(auctionDto.getStartDateTime());
+        auction.setEndDateTime(auctionDto.getStartDateTime().plusDays(7L));
         auction.setUser(user);
         //todo auction.setUser(auctionDto.getAccountName());
         return auctionRepository.save(auction);
