@@ -18,6 +18,7 @@ public class AuctionMapper {
         auction.setBuyNowPrice(auctionDto.getBuyNowPrice());
         auction.setActualPrice(auctionDto.getActualPrice());
         auction.setLocation(auctionDto.getLocation());
+        auction.setBuyNowEnable(auctionDto.isBuyNowEnable());
         return auction;
     }
 
@@ -30,6 +31,7 @@ public class AuctionMapper {
         auctionDto.setBuyNowPrice(auction.getBuyNowPrice());
         auctionDto.setActualPrice(auction.getActualPrice());
         auctionDto.setLocation(auction.getLocation());
+        auctionDto.setBuyNowEnable(auction.isBuyNowEnable());
         if (auction.getUser() != null) {
             auctionDto.setAccountName(auction.getUser().getAccountName());
         }

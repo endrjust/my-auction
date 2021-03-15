@@ -47,6 +47,8 @@ public class Auction {
 
     private int numberOfViews;
 
+    private boolean buyNowEnable;
+
     private boolean isFinished;
 
     @ManyToOne

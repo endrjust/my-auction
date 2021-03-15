@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.model.Auction;
 import com.example.demo.domain.model.Category;
-import com.example.demo.exception.AuctionNotFoundException;
 import com.example.demo.exception.TooLowPriceException;
 import com.example.demo.model.AuctionDto;
 import com.example.demo.model.BiddingDto;
@@ -37,7 +36,7 @@ public class AuctionHtmlController {
     public String auctionDetails(Model model, @PathVariable long auctionId, @RequestParam(required = false) boolean offerBidTooLow) {
         Auction auctionById = auctionService.findAuctionById(auctionId);
         Iterable<BiddingDto> allBids = biddingService.findAllBids();
-        if(offerBidTooLow){
+        if (offerBidTooLow) {
             model.addAttribute("tooLowPrice", true);
         }
         model.addAttribute("auction", auctionById);
@@ -77,5 +76,13 @@ public class AuctionHtmlController {
         model.addAttribute("auctionss", allByCategory);
         return "index";
     }
+
+    @PostMapping("/buyNow/{auctionId}")
+    public String buyNow(@PathVariable long auctionId, Model model) {
+        auctionService.buyNow(auctionId);
+        model.addAttribute("auctionId", auctionId);
+        return "redirect:/auctionDetail/" + auctionId;
+    }
+
 
 }

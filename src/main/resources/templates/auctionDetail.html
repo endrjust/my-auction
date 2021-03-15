@@ -23,6 +23,7 @@
     <p th:text="'Kategoria ' + ${auction.getCategory()}"></p>
     <p th:text="'Start aukcji ' + ${auction.getStartDateTime()}"></p>
     <p th:text="'Koniec aukcji ' + ${auction.getEndDateTime()}"></p>
+    <p th:if="${auction.isFinished()}">Auction is fished</p>
     <img src="https://www.iconsdb.com/icons/preview/gray/package-2-xxl.png" class="flex-shrink-0 me-3"
          alt="zdjęcie przedmiotu">
     <p>=============================</p>
@@ -42,7 +43,7 @@
 <p>
 <p>=============================</p></p>
 <div>
-    <form th:action="@{/makeBid/__${auctionId}__}" th:object="${newBid}" method="post">
+    <form th:if="${!auction.isFinished()}" th:action="@{/makeBid/__${auctionId}__}" th:object="${newBid}" method="post">
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon3">OfferPrice</span>
@@ -50,10 +51,16 @@
                    aria-label="OfferPrice"
                    aria-describedby="basic-addon2">
         </div>
-        <p th:if="${tooLowPrice}">Offered price has to be higher than actual price</p>
+        <div th:if="${tooLowPrice}" class="alert alert-danger" role="alert">
+            Offered price has to be higher than actual price
+        </div>
+<!--        <p th:if="${tooLowPrice}">Offered price has to be higher than actual price</p>-->
         <p><input type="submit" value="MAKE BID"></p>
+<!--        <p><input type="button" value="BuyNow" th:action="@{/buyNow/__${auctionId}__}"></p>-->
     </form>
-
+    <form th:method="post" th:if="${auction.isBuyNowEnable()}AND${!auction.isFinished()}" th:action="@{/buyNow/{auctionId}(auctionId=${auctionId})}">
+        <p><input type="submit" value="BUY NOW" ></p>
+    </form>
 </div>
 <!-- Pagination -->
 <nav aria-label="Page navigation example">

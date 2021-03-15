@@ -43,10 +43,12 @@ public class BiddingService {
             throw new TooLowPriceException("Offered rice has to be higher than actual price.");
         }
         auctionDto.setActualPrice(biddingDto.getOfferPrice());
+        auctionDto.setBuyNowEnable(false);
         Bidding bidding = biddingMapper.map(biddingDto);
         bidding.setUser(user);
         bidding.setAuction(auctionService.findAuctionById(biddingDto.getAuctionId()));
         bidding.setOfferDateTime(LocalDateTime.now());
+
 
        auctionService.updateAuctionById(auctionDto, biddingDto.getAuctionId());
         biddingRepository.save(bidding);

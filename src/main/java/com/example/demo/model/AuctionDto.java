@@ -33,6 +33,8 @@ public class AuctionDto {
 
     private LocalDateTime endDateTime;
 
+    private boolean buyNowEnable;
+
     private long userId;
 
     private String accountName;
