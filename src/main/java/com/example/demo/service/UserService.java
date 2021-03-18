@@ -22,9 +22,9 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserService implements UserDetailsService {
-    private PasswordEncoder passwordEncoder;
-    private UserRepository userRepository;
-    private UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserMapper userMapper) {
         this.passwordEncoder = passwordEncoder;
@@ -78,7 +78,7 @@ public class UserService implements UserDetailsService {
         return userMapper.map(user);
     }
 
-    public User findUserEntity (long userId) {
+    public User findUserEntity(long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " cannot be found"));
         return user;
@@ -86,26 +86,26 @@ public class UserService implements UserDetailsService {
 
     public void validateUserRegistration(UserDto userDto) throws EmailExistsException, InvalidRegistrationDataException {
 
-        if (userDto.getEmail().isBlank()){
+        if (userDto.getEmail().isBlank()) {
             throw new InvalidRegistrationDataException("Email cannot to be empty");
         }
-        if (userDto.getPassword().isBlank()){
+        if (userDto.getPassword().isBlank()) {
             throw new InvalidRegistrationDataException("Password cannot to be empty");
         }
-        if (userRepository.existsByEmail(userDto.getEmail())){
+        if (userRepository.existsByEmail(userDto.getEmail())) {
             throw new EmailExistsException("This email exists");
         }
-        if (!userDto.getPassword().equals(userDto.getRepeatedPassword())){
+        if (!userDto.getPassword().equals(userDto.getRepeatedPassword())) {
             throw new InvalidRegistrationDataException("Password must be the same");
         }
     }
 
     public void validateUserMoreDetails(UserDto userDto) throws InvalidRegistrationDataException, AccountNameExistsException {
-        if (userDto.getAccountName().isBlank()){
+        if (userDto.getAccountName().isBlank()) {
             throw new InvalidRegistrationDataException("Email cannot to be empty");
         }
 
-        if (userRepository.existsByAccountName(userDto.getAccountName())){
+        if (userRepository.existsByAccountName(userDto.getAccountName())) {
             throw new AccountNameExistsException("This name is taken ");
         }
     }

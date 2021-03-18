@@ -1,7 +1,5 @@
 package com.example.demo.model;
 
-import com.example.demo.domain.model.Category;
-import com.example.demo.domain.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
