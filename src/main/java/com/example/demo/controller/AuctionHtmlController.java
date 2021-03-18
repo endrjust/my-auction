@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -52,13 +53,13 @@ public class AuctionHtmlController {
     }
 
     @PostMapping("/addAuction")
-    public String addAuctionPost(@ModelAttribute AuctionDto auctionDto) {
+    public String addAuctionPost(@Valid @ModelAttribute AuctionDto auctionDto) {
         auctionService.saveAuction(auctionDto);
         return "redirect:/";
     }
 
     @PostMapping("/makeBid/{auctionId}")
-    public String makeBid(@PathVariable long auctionId, @ModelAttribute BiddingDto biddingDto, Model model) {
+    public String makeBid(@PathVariable long auctionId,@Valid @ModelAttribute BiddingDto biddingDto, Model model) {
         try {
             biddingDto.setAuctionId(auctionId);
             biddingService.makeBid(biddingDto);
