@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -8,68 +8,124 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+    <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>MyAuction</title>
 </head>
 <body>
 <!-- Menu navbar -->
 <div th:insert="~{header::header}"></div>
-<!-- Wyswietlanie aukcji -->
-<div class="justify-content-center">
-    <h1 class th:text="${auction.getTitle()}">Opis aukcji 1</h1>
-    <h2 th:text="${auction.getDescription()}"></h2>
-    <p th:text="'Lokalizacja ' + ${auction.getLocation()}"></p>
-    <p th:text="'Użytkownik ' + ${auction.getUser().getAccountName()}"></p>
-    <p th:text="'Kategoria ' + ${auction.getCategory()}"></p>
-    <p th:text="'Start aukcji ' + ${auction.getStartDateTime()}"></p>
-    <p th:text="'Koniec aukcji ' + ${auction.getEndDateTime()}"></p>
-    <img src="https://www.iconsdb.com/icons/preview/gray/package-2-xxl.png" class="flex-shrink-0 me-3"
-         alt="zdjęcie przedmiotu">
-    <p>=============================</p>
-    <p th:text="'Aktualna cena ' + ${auction.getActualPrice()}"></p>
-</div>
 
+<!--Section: Block Content-->
+<section class="mb-5">
+    <div class="row">
+        <div class="col-md-6 mb-4 mb-md-0">
 
-<div th:each="bid: ${bids}">
-    <div class="d-flex position-relative">
+            <div id="mdb-lightbox-ui"></div>
 
-        <div>
-            <p th:text="${bid.getOfferPrice()}"></p>
-            <p th:text="${bid.getOfferDateTime()}"></p>
+            <div class="mdb-lightbox">
+
+                <div class="row product-gallery mx-1">
+
+                    <div class="col-12 mb-0">
+                        <figure class="view overlay rounded z-depth-1 main-img">
+                            <img th:src="${auction.getItemImageUrl()}" class="img-thumbnail">
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <h5 th:text="${auction.getTitle()}"></h5>
+                <p class="mb-2 text-muted text-uppercase small" th:text="${auction.getCategory()}"></p>
+                <ul class="list-inline small">
+                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
+                    </li>
+                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
+                    </li>
+                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
+                    </li>
+                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
+                    </li>
+                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                </ul>
+                <h3 th:text="${auction.getActualPrice()}"></h3>
+                <p class="pt-1" th:text="${auction.getDescription()}"></p>
+                <div class="table-responsive">
+                    <table class="table table-sm table-borderless mb-0">
+                        <tbody>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>User</strong></th>
+                            <td th:text="${auction.getUser().getAccountName()}"></td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Location</strong></th>
+                            <td th:text="${auction.getLocation()}"></td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>End Date</strong></th>
+                            <td th:text="${#temporals.format(auction.getEndDateTime(), 'dd-MM-yyyy HH:mm')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr>
+                <div  sec:authorize="isAuthenticated()">
+                    <button type="button" class="btn btn-primary btn-md mr-1 mb-2">Buy now</button>
+                    <form th:action="@{/makeBid/__${auctionId}__}" th:object="${newBid}" method="post">
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon3">OfferPrice</span>
+                            <input type="text" th:field="*{offerPrice}" class="form-control" placeholder="OfferPrice"
+                                   aria-label="OfferPrice"
+                                   aria-describedby="basic-addon2">
+                        </div>
+                        <p th:if="${tooLowPrice}">Offered price has to be higher than actual price</p>
+                        <p><input type="submit" value="MAKE BID" sec:authorize="isAuthenticated()"></p>
+                    </form>
+                </div>
+                <p  sec:authorize="!isAuthenticated()">Zaloguj sie, aby móc licytować lub dokonać zakupu.</p>
+                <hr>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                                type="button" role="tab" aria-controls="home" aria-selected="true">Bids
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                                type="button" role="tab" aria-controls="profile" aria-selected="false">Reviews
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <table class="table" th:each="bid: ${bids}">
+                            <thead>
+                            <tr>
+                                <th scope="col">Username</th>
+                                <th scope="col">OfferPrice</th>
+                                <th scope="col">OfferDate</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td th:text="${bid.getUser().getAccountName()}"></td>
+                                <td th:text="${bid.getOfferPrice()}"></td>
+                                <td th:text="${#temporals.format(bid.getOfferDateTime(), 'dd-MM-yyyy HH:mm')}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<p>
-<p>=============================</p></p>
-<div>
-    <form th:action="@{/makeBid/__${auctionId}__}" th:object="${newBid}" method="post">
-
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon3">OfferPrice</span>
-            <input type="text" th:field="*{offerPrice}" class="form-control" placeholder="OfferPrice"
-                   aria-label="OfferPrice"
-                   aria-describedby="basic-addon2">
-        </div>
-        <p th:if="${tooLowPrice}">Offered price has to be higher than actual price</p>
-        <p><input type="submit" value="MAKE BID"></p>
-    </form>
-
-</div>
-<!-- Pagination -->
-<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
-</nav>
-
+</section>
+<!--Section: Block Content-->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"

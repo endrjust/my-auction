@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Service
 public class DataInit {
@@ -40,7 +41,10 @@ public class DataInit {
         auction.setActualPrice(new BigDecimal(160));
         auction.setCategory(Category.HOME);
         auction.setUser(user);
-        auction.setLocation("Torun");
+        auction.setLocation("Katowice");
+        auction.setStartDateTime(LocalDateTime.now());
+        auction.setEndDateTime(LocalDateTime.now().plusWeeks(1L));
+        auction.setItemImageUrl("https://www.mediaexpert.pl/media/cache/filemanager_original/product/2/670/692/569/h4m4oqb2/icons/categories/ikony_rowery_i_skutery_3_poziom/Fat-Bike.jpg");
         auctionRepository.save(auction);
     }
 }
