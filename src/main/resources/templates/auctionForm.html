@@ -25,10 +25,10 @@
     </div>
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon2">Item description</span>
-        <input type="text" th:field="*{description}" class="form-control"
-               placeholder="Say sth more about your item (max 1000 characters)"
-               aria-label="Description"
-               aria-describedby="basic-addon2">
+        <textarea th:rows="5" th:field="*{description}" class="form-control"
+                  placeholder="Say sth more about your item (max 1000 characters)"
+                  aria-label="Description"
+                  aria-describedby="basic-addon2"></textarea>
     </div>
 
     <div class="input-group mb-3">

@@ -6,13 +6,14 @@ import com.example.demo.model.BiddingDto;
 import com.example.demo.service.BiddingService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/bidding")
 public class BiddingController {
 
-    private BiddingService biddingService;
+    private final BiddingService biddingService;
 
     public BiddingController(BiddingService biddingService) {
         this.biddingService = biddingService;
@@ -35,12 +36,12 @@ public class BiddingController {
 
 
     @PostMapping
-    public void makeBid(@RequestBody BiddingDto biddingDto) throws TooLowPriceException {
+    public void makeBid(@Valid @RequestBody BiddingDto biddingDto) throws TooLowPriceException {
         biddingService.makeBid(biddingDto);
     }
 
     @PutMapping
-    public void updateBid(@RequestBody BiddingDto biddingDto, Long biddingId) {
+    public void updateBid(@Valid @RequestBody BiddingDto biddingDto, Long biddingId) {
         biddingService.updateBid(biddingDto,biddingId);
     }
 

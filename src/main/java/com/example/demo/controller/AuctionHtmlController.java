@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.model.Auction;
 import com.example.demo.domain.model.Category;
-import com.example.demo.exception.AuctionNotFoundException;
 import com.example.demo.exception.TooLowPriceException;
 import com.example.demo.model.AuctionDto;
 import com.example.demo.model.BiddingDto;
@@ -12,21 +11,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
 public class AuctionHtmlController {
 
-    AuctionService auctionService;
-    BiddingService biddingService;
+    private final AuctionService auctionService;
+    private final BiddingService biddingService;
 
     public AuctionHtmlController(AuctionService auctionService, BiddingService biddingService) {
         this.auctionService = auctionService;
         this.biddingService = biddingService;
     }
 
-    @GetMapping("/auctions")
+    @GetMapping
     public String allAuctions(Model model) {
         List<Auction> auctionsList = auctionService.findAllEntities();
         model.addAttribute("auctions", auctionsList);
@@ -37,7 +35,7 @@ public class AuctionHtmlController {
     public String auctionDetails(Model model, @PathVariable long auctionId, @RequestParam(required = false) boolean offerBidTooLow) {
         Auction auctionById = auctionService.findAuctionById(auctionId);
         Iterable<BiddingDto> allBids = biddingService.findAllBids();
-        if(offerBidTooLow){
+        if (offerBidTooLow) {
             model.addAttribute("tooLowPrice", true);
         }
         model.addAttribute("auction", auctionById);
@@ -56,7 +54,7 @@ public class AuctionHtmlController {
     @PostMapping("/addAuction")
     public String addAuctionPost(@ModelAttribute AuctionDto auctionDto) {
         auctionService.saveAuction(auctionDto);
-        return "redirect:auctionForm";
+        return "redirect:/";
     }
 
     @PostMapping("/makeBid/{auctionId}")
@@ -68,7 +66,6 @@ public class AuctionHtmlController {
         } catch (TooLowPriceException e) {
             return "redirect:/auctionDetail/" + auctionId + "?offerBidTooLow=true";
         }
-
     }
 
     @GetMapping("/category/{categoryName}")

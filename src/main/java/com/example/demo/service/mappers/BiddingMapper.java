@@ -19,10 +19,10 @@ import java.time.LocalDateTime;
 @Component
 public class BiddingMapper {
 
-    UserService userService;
-    UserMapper userMapper;
-    AuctionService auctionService;
-    AuctionMapper auctionMapper;
+    private UserService userService;
+    private UserMapper userMapper;
+    private AuctionService auctionService;
+    private AuctionMapper auctionMapper;
 
     @Autowired
     public BiddingMapper(UserService userService, UserMapper userMapper, AuctionService auctionService, AuctionMapper auctionMapper) {

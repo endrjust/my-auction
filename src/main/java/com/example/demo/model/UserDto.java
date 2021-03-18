@@ -1,14 +1,9 @@
 package com.example.demo.model;
 
 
-import com.example.demo.domain.model.AccountStatus;
-import com.example.demo.domain.model.AccountType;
 import lombok.Data;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data

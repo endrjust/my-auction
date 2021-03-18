@@ -4,6 +4,7 @@ import com.example.demo.model.TransactionRatingDto;
 import com.example.demo.service.TransactionRatingService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,7 @@ public class TransactionRatingController {
     }
 
     @PostMapping
-    public TransactionRatingDto add(@RequestBody TransactionRatingDto transactionRatingDto) {
+    public TransactionRatingDto add(@Valid @RequestBody TransactionRatingDto transactionRatingDto) {
         return transactionRatingService.addTransactionRating(transactionRatingDto);
     }
 
