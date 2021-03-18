@@ -5,6 +5,7 @@ import com.example.demo.model.ObservationDto;
 import com.example.demo.service.ObservationService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,12 +18,12 @@ public class ObservationController {
     }
 
     @PostMapping
-    public ObservationDto add(@RequestBody ObservationDto observationDto){
+    public ObservationDto add(@Valid @RequestBody ObservationDto observationDto){
         return observationService.add(observationDto);
     }
 
     @DeleteMapping
-    public void delete(@RequestBody ObservationDto observationDto){
+    public void delete(@Valid @RequestBody ObservationDto observationDto){
         observationService.delete(observationDto);
     }
     @GetMapping( path = "/{userId}")

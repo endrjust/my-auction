@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.model.Auction;
 import com.example.demo.domain.model.Category;
+import com.example.demo.exception.AuctionNotFoundException;
 import com.example.demo.exception.TooLowPriceException;
 import com.example.demo.model.AuctionDto;
 import com.example.demo.model.BiddingDto;
@@ -11,10 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-//@RequestMapping("/auction")
 public class AuctionHtmlController {
 
     AuctionService auctionService;
@@ -25,10 +26,10 @@ public class AuctionHtmlController {
         this.biddingService = biddingService;
     }
 
-    @GetMapping("/auctions")
+    @GetMapping
     public String allAuctions(Model model) {
         List<Auction> auctionsList = auctionService.findAllEntities();
-        model.addAttribute("auctionss", auctionsList);
+        model.addAttribute("auctions", auctionsList);
         return "index";
     }
 
@@ -36,7 +37,7 @@ public class AuctionHtmlController {
     public String auctionDetails(Model model, @PathVariable long auctionId, @RequestParam(required = false) boolean offerBidTooLow) {
         Auction auctionById = auctionService.findAuctionById(auctionId);
         Iterable<BiddingDto> allBids = biddingService.findAllBids();
-        if (offerBidTooLow) {
+        if(offerBidTooLow){
             model.addAttribute("tooLowPrice", true);
         }
         model.addAttribute("auction", auctionById);
@@ -73,7 +74,7 @@ public class AuctionHtmlController {
     @GetMapping("/category/{categoryName}")
     public String findByCategory(@PathVariable("categoryName") Category categoryName, Model model) {
         List<Auction> allByCategory = auctionService.findAllByCategoryEntities(categoryName);
-        model.addAttribute("auctionss", allByCategory);
+        model.addAttribute("auctions", allByCategory);
         return "index";
     }
 
