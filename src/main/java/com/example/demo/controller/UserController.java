@@ -7,13 +7,14 @@ import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
@@ -32,7 +33,7 @@ public class UserController {
 
 
     @PostMapping
-    public UserDto saveUser(@RequestBody UserDto userDto) throws EmailExistsException {
+    public UserDto saveUser(@Valid @RequestBody UserDto userDto) throws EmailExistsException {
        return  userService.saveUser(userDto);
     }
 
@@ -42,7 +43,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-        public void updateUser(@RequestBody UserDto userDto, @PathVariable long userId){
+        public void updateUser(@Valid @RequestBody UserDto userDto, @PathVariable long userId){
         userService.updateUser(userDto, userId);
 
     }

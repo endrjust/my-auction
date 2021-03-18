@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -27,7 +27,7 @@ public class AuctionHtmlController {
         this.biddingService = biddingService;
     }
 
-    @GetMapping("")
+    @GetMapping
     public String allAuctions(Model model) {
         List<Auction> auctionsList = auctionService.findAllEntities();
         model.addAttribute("auctions", auctionsList);
@@ -78,4 +78,13 @@ public class AuctionHtmlController {
         model.addAttribute("auctions", allByCategory);
         return "index";
     }
+
+    @PostMapping("/buyNow/{auctionId}")
+    public String buyNow(@PathVariable long auctionId, Model model) {
+        auctionService.buyNow(auctionId);
+        model.addAttribute("auctionId", auctionId);
+        return "redirect:/auctionDetail/" + auctionId;
+    }
+
+
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -30,7 +31,7 @@ public class UserHtmlConrtoller {
     }
 
     @PostMapping("/addUser")
-    public String addUser(@ModelAttribute UserDto userDto, Model model) {
+    public String addUser(@Valid @ModelAttribute UserDto userDto, Model model) {
 
         try {
             userService.validateUserMoreDetails(userDto);
@@ -56,7 +57,7 @@ public class UserHtmlConrtoller {
     }
 
     @PostMapping("/registerNewUser")
-    public String registerUser(@ModelAttribute UserDto userDto, Model model) {
+    public String registerUser(@Valid @ModelAttribute UserDto userDto, Model model) {
         try {
             userService.validateUserRegistration(userDto);
             model.addAttribute("newUser", userDto);

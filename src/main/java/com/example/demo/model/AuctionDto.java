@@ -1,7 +1,5 @@
 package com.example.demo.model;
 
-import com.example.demo.domain.model.Category;
-import com.example.demo.domain.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +31,8 @@ public class AuctionDto {
     private LocalDateTime startDateTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime endDateTime;
+
+    private boolean buyNowEnable;
 
     private long userId;
 
