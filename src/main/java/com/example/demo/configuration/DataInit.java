@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Service
 public class DataInit {
@@ -54,6 +55,7 @@ public class DataInit {
         auction1.setStartDateTime(LocalDateTime.now());
         auction1.setEndDateTime(LocalDateTime.now().plusDays(3));
         auction1.setUser(user1);
+        auction1.setItemImageUrl("https://mrozbike.pl/images/Rower%20g%C3%B3rski%20Focus%20O1E%208.7%202020.jpg");
         auction1.setLocation(user1.getCity());
         auction1.setBuyNowEnable(true);
         auctionRepository.save(auction1);
@@ -65,6 +67,7 @@ public class DataInit {
         auction2.setActualPrice(new BigDecimal(160));
         auction2.setCategory(Category.ANIMALS);
         auction2.setUser(user1);
+        auction2.setItemImageUrl("https://f00.osfr.pl/foto/5/48315060977/4cab67358c53023725fe48019197864/activejet-komputer-i5-16gb-512ssd-1660ti-w10,48315060977_7.jpg");
         auction2.setStartDateTime(LocalDateTime.now());
         auction2.setEndDateTime(LocalDateTime.now().plusDays(4));
         auction2.setLocation("Torun");

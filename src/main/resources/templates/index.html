@@ -26,54 +26,45 @@
         </div>
     </div>
     <div class="col-md-10 ">
-
-        <div class="col-md-10 ">
-            <!-- List group-->
-            <div class="row g-2">
-                <ul class="list-group shadow">
-                    <!-- list group item-->
-                    <div class="col-md-4">
-                        <li class="list-group-item" th:each="auction: ${auctions}">
-                            <!-- Custom content-->
-                            <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-                                <div class="media-body order-2 order-lg-1 text-center">
-                                    <h2 class="mt-0 font-weight-bold mb-2" th:text="${auction.getTitle()}"></h2>
-                                    <p class="font-italic text-muted mb-0 small"
-                                       th:text="${auction.getDescription()}"></p>
-                                    <h4 class="font-weight-bold my-m3 text-center"
-                                        th:text="${auction.getActualPrice()}"></h4>
-                                    <!-- wyswietlanie gwiazdek - ocena -->
-                                    <ul class="list-inline small">
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
-                                        </li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
-                                        </li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
-                                        </li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
-                                        </li>
-                                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
-                                    </ul>
-                                <img th:src="${auction.getItemImageUrl()}" alt="Generic placeholder image" width="200"
-                                     class="ml-lg-5 order-1 order-lg-2">
-                                <div class="cart-button mt-3 px-2 d-flex justify-content-between align-items-center">
-                                    <a th:href="@{/auctionDetail/{auctionId}(auctionId=${auction.getId()})}"
-                                       class="btn btn-secondary fa fa-info">  Details</a>
-                                    <a th:href="@{/auctionDetail/{auctionId}(auctionId=${auction.getId()})}"
-                                       class="btn btn-danger fa fa-shopping-cart">  BUY NOW</a>
-                                </div>
+        <!-- List group-->
+        <div class="row g-2">
+            <div class="col-4" th:each="auction: ${auctions}">
+                <li class="list-group-item" >
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1 text-center">
+                            <h2 class="mt-0 font-weight-bold mb-2" th:text="${auction.getTitle()}"></h2>
+                            <h4 class="font-weight-bold my-m3 text-center"
+                                th:text="${auction.getActualPrice()}"></h4>
+                            <!-- wyswietlanie gwiazdek - ocena -->
+                            <ul class="list-inline small">
+                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
+                                </li>
+                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
+                                </li>
+                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
+                                </li>
+                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
+                                </li>
+                                <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                            </ul>
+                            <img th:src="${auction.getItemImageUrl()}" alt="Generic placeholder image"
+                                 width="200" height="150"
+                                 class="ml-lg-5 order-1 order-lg-2">
+                            <div class="cart-button mt-3 px-2 d-flex justify-content-between align-items-center">
+                                <a th:href="@{/auctionDetail/{auctionId}(auctionId=${auction.getId()})}"
+                                   class="btn btn-secondary fa fa-info"> Details</a>
+                                <a th:href="@{/auctionDetail/{auctionId}(auctionId=${auction.getId()})}"
+                                   class="btn btn-danger fa fa-shopping-cart"> BUY NOW</a>
                             </div>
-                            <!-- End -->
-                        </li>
+                        </div>
+                        <!-- End -->
                     </div>
-                    <!-- End -->
-                </ul>
-                <!-- End -->
+                </li>
             </div>
+            <!-- End -->
         </div>
     </div>
-
-
 </div>
 </body>
 </html>
