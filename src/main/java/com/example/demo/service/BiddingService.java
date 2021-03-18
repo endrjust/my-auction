@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.domain.model.Auction;
 import com.example.demo.domain.model.Bidding;
 import com.example.demo.domain.model.User;
+import com.example.demo.exception.AuctionException;
 import com.example.demo.exception.TooLowPriceException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.AuctionDto;
@@ -39,6 +40,9 @@ public class BiddingService {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AuctionDto auctionDto =auctionMapper.map( auctionService.findAuctionById(biddingDto.getAuctionId()));
 
+        if(biddingDto.getOfferPrice()==null){
+            throw new AuctionException("Offered price cannot be empty.");
+        }
         if (biddingDto.getOfferPrice().compareTo(auctionDto.getActualPrice()) <= 0 ){
             throw new TooLowPriceException("Offered rice has to be higher than actual price.");
         }
