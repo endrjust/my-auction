@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Service
 public class DataInit {
@@ -72,5 +71,4 @@ public class DataInit {
         auction2.setBuyNowEnable(true);
         auctionRepository.save(auction2);
     }
-
 }

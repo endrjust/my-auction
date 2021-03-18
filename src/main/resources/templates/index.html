@@ -5,58 +5,75 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>MyAuction</title>
 </head>
 <body>
 <!-- Menu navbar z pliku header.html -->
 <div th:insert="~{header::header}"></div>
 
-<!--Lista kategorii-->
-<ul class="nav flex-column">
-    <li class="nav-item" th:each="category: ${T(com.example.demo.domain.model.Category).values()}">
-        <a class="nav-link active" aria-current="page" th:href="@{/category/{categoryName}(categoryName=${category})}"
-           th:text="${category}"></a>
-    </li>
-
-</ul>
-
-
-<!-- Wyswietlanie aukcji -->
-<div th:each="auction: ${auctions}">
-    <div class="d-flex position-relative">
-        <img src="https://www.iconsdb.com/icons/preview/gray/package-2-xxl.png" class="flex-shrink-0 me-3"
-             alt="zdjęcie przedmiotu">
-        <div>
-            <h5 class="mt-0" th:text="${auction.getTitle()}"></h5>
-            <p th:text="${auction.getDescription()}"></p>
-            <a th:href="@{/auctionDetail/{auctionId}(auctionId=${auction.getId()})}" class="stretched-link">More details...</a>
+<div class="row">
+    <div class="col-md-2">
+        <div class="list-group" th:each="category: ${T(com.example.demo.domain.model.Category).values()}">
+            <a th:href="@{/category/{categoryName}(categoryName=${category})}"
+               class="list-group-item list-group-item-action list-group-item-dark fs-4" th:text="${category}"></a>
         </div>
     </div>
+    <div class="col-md-10 ">
+
+        <div class="col-md-10 ">
+            <!-- List group-->
+            <div class="row g-2">
+                <ul class="list-group shadow">
+                    <!-- list group item-->
+                    <div class="col-md-4">
+                        <li class="list-group-item" th:each="auction: ${auctions}">
+                            <!-- Custom content-->
+                            <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                                <div class="media-body order-2 order-lg-1 text-center">
+                                    <h2 class="mt-0 font-weight-bold mb-2" th:text="${auction.getTitle()}"></h2>
+                                    <p class="font-italic text-muted mb-0 small"
+                                       th:text="${auction.getDescription()}"></p>
+                                    <h4 class="font-weight-bold my-m3 text-center"
+                                        th:text="${auction.getActualPrice()}"></h4>
+                                    <!-- wyswietlanie gwiazdek - ocena -->
+                                    <ul class="list-inline small">
+                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
+                                        </li>
+                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
+                                        </li>
+                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
+                                        </li>
+                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i>
+                                        </li>
+                                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                    </ul>
+                                <img th:src="${auction.getItemImageUrl()}" alt="Generic placeholder image" width="200"
+                                     class="ml-lg-5 order-1 order-lg-2">
+                                <div class="cart-button mt-3 px-2 d-flex justify-content-between align-items-center">
+                                    <a th:href="@{/auctionDetail/{auctionId}(auctionId=${auction.getId()})}"
+                                       class="btn btn-secondary fa fa-info">  Details</a>
+                                    <a th:href="@{/auctionDetail/{auctionId}(auctionId=${auction.getId()})}"
+                                       class="btn btn-danger fa fa-shopping-cart">  BUY NOW</a>
+                                </div>
+                            </div>
+                            <!-- End -->
+                        </li>
+                    </div>
+                    <!-- End -->
+                </ul>
+                <!-- End -->
+            </div>
+        </div>
+    </div>
+
+
 </div>
-
-<!-- Pagination -->
-<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
-</nav>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-        crossorigin="anonymous"></script>
-
 </body>
 </html>

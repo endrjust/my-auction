@@ -62,6 +62,10 @@ public class BiddingService {
         return biddingRepository.findAll().stream().map(biddingMapper::map).collect(Collectors.toList());
     }
 
+    public Iterable<Bidding> findAllBidsEntity(){
+        return biddingRepository.findAll();
+    }
+
     public void removeAuctionById(long biddingId) {
         biddingRepository.deleteById(biddingId);
     }
