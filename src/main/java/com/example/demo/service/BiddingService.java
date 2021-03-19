@@ -66,7 +66,7 @@ public class BiddingService {
         return biddingRepository.findAll();
     }
 
-    public void removeAuctionById(long biddingId) {
+    public void removeBidById(long biddingId) {
         biddingRepository.deleteById(biddingId);
     }
 

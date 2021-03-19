@@ -57,6 +57,10 @@ public class Auction {
     @OneToMany
     private List<Bidding> biddingList;
 
+    public void setFinished() {
+        if (LocalDateTime.now().isAfter(endDateTime)) {
+            isFinished = true;
+        } else isFinished = false;
 
-
+    }
 }

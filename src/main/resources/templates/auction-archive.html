@@ -19,12 +19,12 @@
 <div th:insert="~{header::header}"></div>
 
 <div class="row">
-<!--    <div class="col-md-2">-->
-<!--        <div class="list-group" th:each="category: ${T(com.example.demo.domain.model.Category).values()}">-->
-<!--            <a th:href="@{/category/{categoryName}(categoryName=${category})}"-->
-<!--               class="list-group-item list-group-item-action list-group-item-dark fs-4" th:text="${category}"></a>-->
-<!--        </div>-->
-<!--    </div>-->
+    <div class="col-md-2">
+        <div class="list-group" th:each="category: ${T(com.example.demo.domain.model.Category).values()}">
+            <a th:href="@{/category/{categoryName}(categoryName=${category})}"
+               class="list-group-item list-group-item-action list-group-item-dark fs-4" th:text="${category}"></a>
+        </div>
+    </div>
     <div class="col-md-10 ">
         <!-- List group-->
         <div class="row g-2">
