@@ -3,6 +3,7 @@ package com.example.demo.domain.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -39,13 +40,13 @@ public class Auction {
 
     private boolean isPromoted;
     @NotEmpty
-    private String location;    //z encji User wyciąga miasto i woj.
-    //@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private String location;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime startDateTime;    //data i czas w momencie tworzenia
-    //@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime endDateTime;      //za 7 dni od 'startDateTime
     private int numberOfViews;
-
+    private String itemImageUrl;
     private boolean buyNowEnable;
 
     private boolean isFinished;
@@ -55,6 +56,7 @@ public class Auction {
 
     @OneToMany
     private List<Bidding> biddingList;
-    private String itemImageUrl;
+
+
 
 }

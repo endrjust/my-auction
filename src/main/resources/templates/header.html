@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
-      xmlns:form="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <body>
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg " th:fragment="header">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">MyAuction</a>
+        <a class="navbar-brand" href="#"></a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,6 +17,8 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
                 </li>
+                <a class="nav-link active" aria-current="page" th:href="@{/auction-archive}">Archive</a>
+
 
                 <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"

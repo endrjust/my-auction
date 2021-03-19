@@ -18,4 +18,6 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
     List<Auction> findAllByLocation(String location);
 
     List<Auction> findAllByActualPriceBetween(BigDecimal priceLowerBound, BigDecimal priceUpperBound);
+
+
 }

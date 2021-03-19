@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.domain.model.Auction;
 import com.example.demo.domain.model.Bidding;
 import com.example.demo.domain.model.Category;
-import com.example.demo.exception.AuctionNotFoundException;
 import com.example.demo.exception.TooLowPriceException;
 import com.example.demo.model.AuctionDto;
 import com.example.demo.model.BiddingDto;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -34,11 +32,19 @@ public class AuctionHtmlController {
         return "index";
     }
 
+    @GetMapping("/auction-archive")
+    public String allFinishedAuctions(Model model) {
+        List<Auction> allFinishedAuctionsList = auctionService.findAllFinishedEntities();
+        model.addAttribute("finishedAuctions", allFinishedAuctionsList);
+        return "/auction-archive";
+    }
+
+
     @GetMapping("/auctionDetail/{auctionId}")
     public String auctionDetails(Model model, @PathVariable long auctionId, @RequestParam(required = false) boolean offerBidTooLow) {
         Auction auctionById = auctionService.findAuctionById(auctionId);
         Iterable<Bidding> allBids = biddingService.findAllBidsEntity();
-        if(offerBidTooLow){
+        if (offerBidTooLow) {
             model.addAttribute("tooLowPrice", true);
         }
         model.addAttribute("auction", auctionById);
