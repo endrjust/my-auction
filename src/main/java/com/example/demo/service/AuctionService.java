@@ -9,13 +9,10 @@ import com.example.demo.exception.AuctionIsFinishedException;
 import com.example.demo.exception.AuctionNotFoundException;
 import com.example.demo.model.AuctionDto;
 import com.example.demo.service.mappers.AuctionMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,24 +28,31 @@ public class AuctionService {
     }
 
     public List<Auction> findAllEntities() {
-        return auctionRepository.findAll();
+        return auctionRepository.findAll().stream()
+                .filter(auction -> !auction.isFinished()).collect(Collectors.toList());
+    }
+
+    public List<Auction> findAllFinishedEntities() {
+        return auctionRepository.findAll().stream()
+                .filter(Auction::isFinished).collect(Collectors.toList());
     }
 
     public List<AuctionDto> findAll() {
         return auctionRepository.findAll().stream()
+                .filter(auction -> !auction.isFinished())
                 .map(auctionMapper::map).collect(Collectors.toList());
     }
 
-        public List<AuctionDto> findAllByCategory(Category category) {
+    public List<AuctionDto> findAllByCategory(Category category) {
         return auctionRepository.findAllByCategory(category).stream()
                 .map(auctionMapper::map).collect(Collectors.toList());
 
     }
+
     public List<Auction> findAllByCategoryEntities(Category category) {
         return auctionRepository.findAllByCategory(category);
 
     }
-
 
     public List<AuctionDto> findAllByUser(String accountName) {
         return auctionRepository.findAllByUser(accountName).stream()
@@ -105,17 +109,17 @@ public class AuctionService {
         auctionRepository.deleteById(auctionId);
     }
 
-    public void buyNow(long auctionId){
+    public void buyNow(long auctionId) {
 
         Auction auction = auctionRepository.findById(auctionId)
                 .orElseThrow(() -> new AuctionNotFoundException("No Auction with this Id found."));
-        if (auction.isFinished()){
+        if (auction.isFinished()) {
             throw new AuctionIsFinishedException("Cannot buy this auction. Auction is finished");
         }
-        if(auction.isBuyNowEnable()) {
+        if (auction.isBuyNowEnable()) {
             auction.setFinished(true);
             auctionRepository.save(auction);
-        }else {
+        } else {
             throw new AuctionException("Cannot buy this auction. Auction is bidden");
         }
 
