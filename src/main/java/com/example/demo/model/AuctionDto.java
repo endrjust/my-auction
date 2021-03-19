@@ -26,17 +26,20 @@ public class AuctionDto {
 
     private BigDecimal actualPrice;
 
-    private String location;    //z encji User wyciąga miasto i woj.
+    private String location;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime startDateTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime endDateTime;
 
+    private String itemImageUrl;
+
     private boolean buyNowEnable;
+
+    private boolean isFinished;
 
     private long userId;
 
     private String accountName;
-    private String itemImageUrl;
 
 }

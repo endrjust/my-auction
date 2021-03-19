@@ -110,7 +110,6 @@ public class AuctionService {
     }
 
     public void buyNow(long auctionId) {
-
         Auction auction = auctionRepository.findById(auctionId)
                 .orElseThrow(() -> new AuctionNotFoundException("No Auction with this Id found."));
         if (auction.isFinished()) {

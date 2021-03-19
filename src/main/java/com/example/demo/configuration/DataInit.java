@@ -80,18 +80,18 @@ public class DataInit {
         auctionRepository.save(auction2);
 
         Auction auction3 = new Auction();
-        auction3.setTitle("aukcja3-zakończona");
-        auction3.setDescription("opis aukcji2");
+        auction3.setTitle("aukcja3");
+        auction3.setDescription("zakończona aukcja");
         auction3.setBuyNowPrice(new BigDecimal(50));
         auction3.setActualPrice(new BigDecimal(15));
         auction3.setCategory(Category.CLOTHES);
         auction3.setUser(user1);
         auction3.setItemImageUrl("https://mrozbike.pl/images/SIS-Baton-Energetyczny-Jab%C5%82ko-Porzeczka-40-g.jpg");
-        auction3.setStartDateTime(LocalDateTime.now());
-        auction3.setEndDateTime(LocalDateTime.now().plusDays(7));
+        auction3.setStartDateTime(LocalDateTime.now().minusDays(8));
+        auction3.setEndDateTime(LocalDateTime.now().minusDays(1));
         auction3.setLocation("Torun");
         auction3.setFinished(true);
-        auction3.setBuyNowEnable(true);
+        auction3.setBuyNowEnable(false);
 
         auctionRepository.save(auction3);
     }
