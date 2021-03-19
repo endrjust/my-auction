@@ -47,7 +47,7 @@ public class BiddingController {
 
     @DeleteMapping
     public void deleteById(Long biddingId) {
-        biddingService.removeAuctionById(biddingId);
+        biddingService.removeBidById(biddingId);
     }
 
 }
