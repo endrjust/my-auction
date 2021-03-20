@@ -4,7 +4,9 @@ import com.example.demo.domain.model.User;
 import com.example.demo.exception.AccountNameExistsException;
 import com.example.demo.exception.EmailExistsException;
 import com.example.demo.exception.InvalidRegistrationDataException;
+import com.example.demo.model.ObservationDto;
 import com.example.demo.model.UserDto;
+import com.example.demo.service.ObservationService;
 import com.example.demo.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +19,11 @@ import java.util.List;
 public class UserHtmlConrtoller {
 
     private UserService userService;
+    private ObservationService observationService;
 
-    public UserHtmlConrtoller(UserService userService) {
+    public UserHtmlConrtoller(UserService userService, ObservationService observationService) {
         this.userService = userService;
+        this.observationService = observationService;
     }
 
     @GetMapping("/users")
@@ -100,5 +104,28 @@ public class UserHtmlConrtoller {
         model.addAttribute("loginError", true);
         return "login";
     }
+
+    @GetMapping("/profile")
+    public String getUserProfilePage(Model model){
+        User user = userService.findUserEntity();
+        List<ObservationDto> allUserObservations = observationService.findAllUserObservations();
+        model.addAttribute("user", user);
+        model.addAttribute("userObservations", allUserObservations);
+        return "profilPage";
+    }
+
+    @GetMapping("/user-profile")
+    public String showUserEditProfileForm(Model model){
+        User user = userService.findUserEntity();
+        model.addAttribute("userDetails", user);
+        return "userProfile";
+    }
+
+    @PostMapping("/userEditProfile")
+    public String editUserProfile(@ModelAttribute UserDto userDto, Model model){
+      userService.updateUser(userDto);
+      return "redirect:/profile";
+    }
+
 
 }

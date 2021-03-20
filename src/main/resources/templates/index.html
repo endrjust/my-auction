@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -27,7 +27,7 @@
 
     <div>
             <a th:href="@{/finished-auctions}"
-               class="list-group-item list-group-item-action list-group-item-dark fs-4" >ARCHIVE</a>
+               class="list-group-item list-group-item-action list-group-item-dark fs-4">ARCHIVE</a>
         </div>
         <div>
             <form th:action="@{/close-outdated-auctions}" method="post">
@@ -40,7 +40,7 @@
         <!-- List group-->
         <div class="row g-2">
             <div class="col-4" th:each="auction: ${auctions}">
-                <li class="list-group-item" >
+                <li class="list-group-item">
                     <!-- Custom content-->
                     <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                         <div class="media-body order-2 order-lg-1 text-center">
@@ -65,6 +65,12 @@
                             <div class="cart-button mt-3 px-2 d-flex justify-content-between align-items-center">
                                 <a th:href="@{/auctionDetail/{auctionId}(auctionId=${auction.getId()})}"
                                    class="btn btn-secondary fa fa-info"> Details</a>
+                                <form method="post"
+                                      th:action="@{/addAuctionToObservations/{auctionId}(auctionId=${auction.getId()})}">
+                                    <input type="hidden" name="name" value="value"/>
+                                    <a onclick="this.parentNode.submit(); " class="btn btn-secondary fa fa-heart"
+                                       sec:authorize="isAuthenticated()"></a>
+                                </form>
                                 <a th:href="@{/auctionDetail/{auctionId}(auctionId=${auction.getId()})}"
                                    class="btn btn-danger fa fa-shopping-cart"> BUY NOW</a>
                             </div>
