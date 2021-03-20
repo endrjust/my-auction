@@ -24,7 +24,6 @@ public class TransactionRating {
     @NotEmpty
     @Size(min = 5, max = 80)
     private String comment;
-    @NotEmpty
-    //todo walidacja w serwisie
-    private int rate;   //od 1 do 5
+
+    private Rate rate;
 }
