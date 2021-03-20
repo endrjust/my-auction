@@ -33,17 +33,16 @@ public class UserHtmlConrtoller {
         return "users";
     }
 
-    @GetMapping("/userProfile") //todo:do sprawdzenia
+    @GetMapping("/userProfile")
     public String getUserProfile(Model model) {
         User userEntity = userService.findUserEntity();
         model.addAttribute("userDetails", userEntity);
         return "/userProfile";
     }
 
-    @PostMapping("/userProfile") //todo:do sprawdzenia
-    public String updateUserProfile(@ModelAttribute UserDto userDto,Model model) {
-        User updatedUser = userService.updateUser(userDto);
-        model.addAttribute("updatedUser",updatedUser);
+    @PostMapping("/userProfile")
+    public String updateUserProfile(@ModelAttribute UserDto userDto) {
+        userService.updateUser(userDto);
         return "redirect:userProfile";
     }
 
@@ -106,7 +105,7 @@ public class UserHtmlConrtoller {
     }
 
     @GetMapping("/profile")
-    public String getUserProfilePage(Model model){
+    public String getUserProfilePage(Model model) {
         User user = userService.findUserEntity();
         List<ObservationDto> allUserObservations = observationService.findAllUserObservations();
         model.addAttribute("user", user);
@@ -115,16 +114,16 @@ public class UserHtmlConrtoller {
     }
 
     @GetMapping("/user-profile")
-    public String showUserEditProfileForm(Model model){
+    public String showUserEditProfileForm(Model model) {
         User user = userService.findUserEntity();
         model.addAttribute("userDetails", user);
         return "userProfile";
     }
 
     @PostMapping("/userEditProfile")
-    public String editUserProfile(@ModelAttribute UserDto userDto, Model model){
-      userService.updateUser(userDto);
-      return "redirect:/profile";
+    public String editUserProfile(@ModelAttribute UserDto userDto, Model model) {
+        userService.updateUser(userDto);
+        return "redirect:/profile";
     }
 
 

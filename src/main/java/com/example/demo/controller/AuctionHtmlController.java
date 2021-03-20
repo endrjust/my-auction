@@ -85,8 +85,8 @@ public class AuctionHtmlController {
         return "redirect:/auctionDetail/" + auctionId;
     }
 
-    @GetMapping("/close-outdated-auctions")
-    public String closeAllFinishedAuctions(Model model){
+    @PostMapping("/close-outdated-auctions")
+    public String closeAllFinishedAuctions(){
     auctionService.closeOutdatedAuctions();
         return "redirect:/";
     }

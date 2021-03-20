@@ -61,7 +61,7 @@ public class DataInit {
         auction1.setDescription("opis aukcji1");
         auction1.setBuyNowPrice(new BigDecimal(200));
         auction1.setActualPrice(new BigDecimal(160));
-        auction1.setCategory(Category.HOME);
+        auction1.setCategory(Category.HOUSE);
         auction1.setStartDateTime(LocalDateTime.now());
         auction1.setEndDateTime(LocalDateTime.now().plusDays(3));
         auction1.setUser(user1);
