@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.model.User;
 import com.example.demo.exception.AccountNameExistsException;
 import com.example.demo.exception.EmailExistsException;
 import com.example.demo.exception.InvalidRegistrationDataException;
@@ -7,9 +8,7 @@ import com.example.demo.model.UserDto;
 import com.example.demo.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,6 +27,20 @@ public class UserHtmlConrtoller {
         List<UserDto> usersList = userService.findAll();
         model.addAttribute("users", usersList);
         return "users";
+    }
+
+    @GetMapping("/userProfile") //todo:do sprawdzenia
+    public String getUserProfile(Model model) {
+        User userEntity = userService.findUserEntity();
+        model.addAttribute("userDetails", userEntity);
+        return "/userProfile";
+    }
+
+    @PostMapping("/userProfile") //todo:do sprawdzenia
+    public String updateUserProfile(@ModelAttribute UserDto userDto,Model model) {
+        User updatedUser = userService.updateUser(userDto);
+        model.addAttribute("updatedUser",updatedUser);
+        return "redirect:userProfile";
     }
 
     @PostMapping("/addUser")
@@ -76,13 +89,15 @@ public class UserHtmlConrtoller {
             return "registerUser";
         }
     }
+
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
+
     @GetMapping("/login-error")
-    public String loginError(Model model){
-        model.addAttribute("loginError",true);
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
         return "login";
     }
 

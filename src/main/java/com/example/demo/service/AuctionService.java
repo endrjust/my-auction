@@ -86,11 +86,9 @@ public class AuctionService {
     public Auction saveAuction(AuctionDto auctionDto) {
         Auction auction = auctionMapper.map(auctionDto);
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //LocalDateTime now = LocalDateTime.now();
         auction.setStartDateTime(auctionDto.getStartDateTime());
         auction.setEndDateTime(auctionDto.getStartDateTime().plusDays(7L));
         auction.setUser(user);
-        //todo auction.setUser(auctionDto.getAccountName());
         return auctionRepository.save(auction);
     }
 

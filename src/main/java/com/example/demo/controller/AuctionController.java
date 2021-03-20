@@ -25,7 +25,6 @@ public class AuctionController {
         return auctionService.findAllEntities();
     }
 
-
     @GetMapping(path = "/category")
     public List<Auction> findAllByCategory(@RequestParam("category") String category) {
         Category parsed = Category.valueOf(category.toUpperCase());

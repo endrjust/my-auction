@@ -26,7 +26,7 @@ public class ObservationService {
             throw new ObservationNotFoundException("Już obserwujesz tą aukcję");
         }
         Observation observation = observationMapper.map(observationDto);
-        observation.setStartObservationDate(LocalDateTime.now());
+
         return observationMapper.map(observationRepository.save(observation));
     }
 

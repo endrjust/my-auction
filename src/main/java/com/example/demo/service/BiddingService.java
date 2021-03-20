@@ -53,7 +53,6 @@ public class BiddingService {
         bidding.setAuction(auctionService.findAuctionById(biddingDto.getAuctionId()));
         bidding.setOfferDateTime(LocalDateTime.now());
 
-
        auctionService.updateAuctionById(auctionDto, biddingDto.getAuctionId());
         biddingRepository.save(bidding);
     }
