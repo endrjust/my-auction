@@ -53,23 +53,12 @@ public class UserService implements UserDetailsService {
 
     public User updateUser(UserDto userDto) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        userRepository.findById(userId)
-//                .orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " cannot be found"));
-//        user.setEmail(userDto.getEmail());
-//        user.setPassword(userDto.getPassword());
         user.setAccountName(userDto.getAccountName());
         user.setRegion(userDto.getRegion());
         user.setCity(userDto.getCity());
-        user.setStreet(user.getStreet());
+        user.setStreet(userDto.getStreet());
         user.setHouseNumber(userDto.getHouseNumber());
         user.setPostalCode(userDto.getPostalCode());
-//        user.setCreated(LocalDate.now());
-//        if (userDto.getAccountStatus() != null) {
-//            user.setAccountStatus(AccountStatus.valueOf(userDto.getAccountStatus().toUpperCase()));
-//        }
-//        if (userDto.getAccountType() != null) {
-//            user.setAccountType(AccountType.valueOf(userDto.getAccountType().toUpperCase()));
-//        }
 
         return userRepository.save(user);
     }

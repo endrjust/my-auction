@@ -26,9 +26,13 @@ public class AuctionDto {
 
     private BigDecimal actualPrice;
 
+    private boolean isPromoted;
+
     private String location;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime startDateTime;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime endDateTime;
 

@@ -22,31 +22,41 @@ public class Auction {
     @GeneratedValue
     @Column(name = "auction_id")
     private long id;
+
     @NotNull
     @Size(min = 5, max = 50)
     private String title;
+
     @NotNull
     @Size(max = 1000)
     private String description;
 
     @Enumerated(value = EnumType.STRING)
     private Category category;
+
     @Min(value = 1)
     private BigDecimal minimumPrice;
+
     @Min(value = 1)
     private BigDecimal buyNowPrice;
 
     private BigDecimal actualPrice;
 
     private boolean isPromoted;
+
     @NotEmpty
     private String location;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime startDateTime;    //data i czas w momencie tworzenia
+
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime endDateTime;      //za 7 dni od 'startDateTime
+
     private int numberOfViews;
+
     private String itemImageUrl;
+
     private boolean buyNowEnable;
 
     private boolean isFinished;
@@ -56,6 +66,4 @@ public class Auction {
 
     @OneToMany
     private List<Bidding> biddingList;
-
-
 }
