@@ -10,7 +10,9 @@ import com.example.demo.service.ObservationService;
 import com.example.demo.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -33,22 +35,30 @@ public class UserHtmlConrtoller {
         return "users";
     }
 
-    @GetMapping("/userProfile")
-    public String getUserProfile(Model model) {
-        User userEntity = userService.findUserEntity();
-        model.addAttribute("userDetails", userEntity);
-        return "/userProfile";
+    @GetMapping("/profile")
+    public String getUserProfilePage(Model model) {
+        User user = userService.findUserEntity();
+        List<ObservationDto> allUserObservations = observationService.findAllUserObservations();
+        model.addAttribute("user", user);
+        model.addAttribute("userObservations", allUserObservations);
+        return "profile";
     }
 
-    @PostMapping("/userProfile")
-    public String updateUserProfile(@ModelAttribute UserDto userDto) {
+    @GetMapping("/user-profile")
+    public String showUserEditProfileForm(Model model) {
+        User user = userService.findUserEntity();
+        model.addAttribute("userDetails", user);
+        return "userProfile";
+    }
+
+    @PostMapping("/userEditProfile")
+    public String editUserProfile(@Valid @ModelAttribute UserDto userDto) {
         userService.updateUser(userDto);
-        return "redirect:userProfile";
+        return "redirect:/profile";
     }
 
     @PostMapping("/addUser")
     public String addUser(@Valid @ModelAttribute UserDto userDto, Model model) {
-
         try {
             userService.validateUserMoreDetails(userDto);
             userService.saveUser(userDto);
@@ -103,28 +113,5 @@ public class UserHtmlConrtoller {
         model.addAttribute("loginError", true);
         return "login";
     }
-
-    @GetMapping("/profile")
-    public String getUserProfilePage(Model model) {
-        User user = userService.findUserEntity();
-        List<ObservationDto> allUserObservations = observationService.findAllUserObservations();
-        model.addAttribute("user", user);
-        model.addAttribute("userObservations", allUserObservations);
-        return "profilPage";
-    }
-
-    @GetMapping("/user-profile")
-    public String showUserEditProfileForm(Model model) {
-        User user = userService.findUserEntity();
-        model.addAttribute("userDetails", user);
-        return "userProfile";
-    }
-
-    @PostMapping("/userEditProfile")
-    public String editUserProfile(@ModelAttribute UserDto userDto, Model model) {
-        userService.updateUser(userDto);
-        return "redirect:/profile";
-    }
-
 
 }

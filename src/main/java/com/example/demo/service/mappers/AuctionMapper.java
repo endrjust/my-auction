@@ -17,8 +17,10 @@ public class AuctionMapper {
         auction.setMinimumPrice(auctionDto.getMinimumPrice());
         auction.setBuyNowPrice(auctionDto.getBuyNowPrice());
         auction.setActualPrice(auctionDto.getActualPrice());
+        auction.setPromoted(auctionDto.isPromoted());
         auction.setLocation(auctionDto.getLocation());
         auction.setBuyNowEnable(auctionDto.isBuyNowEnable());
+        auction.setItemImageUrl(auctionDto.getItemImageUrl());
         return auction;
     }
 
@@ -35,6 +37,7 @@ public class AuctionMapper {
         if (auction.getUser() != null) {
             auctionDto.setAccountName(auction.getUser().getAccountName());
         }
+        auctionDto.setItemImageUrl(auction.getItemImageUrl());
         return auctionDto;
     }
 

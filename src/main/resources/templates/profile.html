@@ -55,6 +55,10 @@
                     </thead>
                     <tbody>
                     <tr class="highlight">
+                        <td class="field">Email</td>
+                        <td><a th:text="${user.getEmail()}"></a></td>
+                    </tr>
+                    <tr class="highlight">
                         <td class="field">Region</td>
                         <td><a th:text="${user.getRegion()}"></a></td>
                     </tr>
@@ -73,6 +77,10 @@
                     <tr class="highlight">
                         <td class="field">Postal Code</td>
                         <td><a th:text="${user.getPostalCode()}"></a></td>
+                    </tr>
+                    <tr class="highlight">
+                        <td class="field">Account created</td>
+                        <td><a th:text="${user.getCreated()}"></a></td>
                     </tr>
                     <tr class="highlight">
                         <td class="field">Account Status</td>

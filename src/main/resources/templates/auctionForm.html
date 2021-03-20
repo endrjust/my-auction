@@ -56,31 +56,43 @@
     </div>
 
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon6">Location</span>
+        <span class="input-group-text" id="basic-addon6">Promote?</span>
+        <input class="form-check-input" type="checkbox"  th:field="${newAuction.promoted}" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault"></label>
+    </div>
+
+
+    <!--<div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon6">Promote?</span>
+        <input type="checkbox" th:value="*{isPromoted()}" th:checked="" class="form-check-input" id="defaultCheck1"
+
+               aria-label="IsPromoted" aria-describedby="basic-addon6">
+    </div>-->
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon7">Location</span>
         <input type="text" th:field="*{location}" class="form-control" placeholder="Write your location"
-               aria-label="Location" aria-describedby="basic-addon6">
+               aria-label="Location" aria-describedby="basic-addon7">
     </div>
 
     <!--       lista do wyboru: dziś, za 1,2,3,4,5 dni-->
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon7">Start time</span>
+        <span class="input-group-text" id="basic-addon8">Start time</span>
         <input type="datetime-local" th:field="*{startDateTime}" class="form-control" placeholder="Choose from calendar"
-               aria-label="StartTime" aria-describedby="basic-addon7">
+               aria-label="StartTime" aria-describedby="basic-addon8">
     </div>
 
 
-    <!--     automatycznie dodaj 7dni-->
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon8">End time</span>
+        <span class="input-group-text" id="basic-addon9">End time</span>
         <input type="text" th:field="*{endDateTime}" class="form-control" placeholder="after 7 days"
-               aria-label="EndTime" aria-describedby="basic-addon8" readonly>
+               aria-label="EndTime" aria-describedby="basic-addon9" readonly>
     </div>
 
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon9">Item image</span>
-        <input type="text" th:field="*{itemImageUrl}" class="form-control" placeholder="Paste your image url here"
-               aria-label="Item image" aria-describedby="basic-addon9">
-        <!--        link do obrazka-->
+        <span class="input-group-text" id="basic-addon10">Item image</span>
+        <input type="text" th:field="*{itemImageUrl}" class="form-control" placeholder="Paste image url here"
+               aria-label="Item image" aria-describedby="basic-addon10">
+
     </div>
 
     <!--inny guzik-->

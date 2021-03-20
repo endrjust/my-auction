@@ -68,7 +68,6 @@ public class DataInit {
         auction1.setItemImageUrl("https://mrozbike.pl/images/Rower%20g%C3%B3rski%20Focus%20O1E%208.7%202020.jpg");
         auction1.setLocation(user1.getCity());
         auction1.setBuyNowEnable(true);
-
         auctionRepository.save(auction1);
 
         Auction auction2 = new Auction();
@@ -83,7 +82,6 @@ public class DataInit {
         auction2.setEndDateTime(LocalDateTime.now().plusDays(6));
         auction2.setLocation("Torun");
         auction2.setBuyNowEnable(true);
-
         auctionRepository.save(auction2);
 
         Auction auction3 = new Auction();
@@ -98,8 +96,7 @@ public class DataInit {
         auction3.setEndDateTime(LocalDateTime.now().minusDays(1));
         auction3.setLocation("Torun");
         auction3.setBuyNowEnable(false);
-
-
+        auction3.setPromoted(true);
         auctionRepository.save(auction3);
     }
 }
