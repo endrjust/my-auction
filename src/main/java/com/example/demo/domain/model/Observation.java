@@ -17,5 +17,4 @@ public class Observation {
 
     private long auctionId;
     private long userId;
-    private LocalDateTime startObservationDate;
 }

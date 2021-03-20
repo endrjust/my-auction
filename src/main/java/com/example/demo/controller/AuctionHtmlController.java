@@ -85,11 +85,17 @@ public class AuctionHtmlController {
         return "redirect:/auctionDetail/" + auctionId;
     }
 
-    @GetMapping("/close-outdated-auctions")
-    public String findAllFinishedAuctions(Model model){
+
+    @PostMapping("/close-outdated-auctions")
+    public String closeFinishedAuctions(){
     auctionService.closeOutdatedAuctions();
+        return "redirect:/";
+    }
+
+    @GetMapping("/finished-auctions")
+    public String findAllFinishedAuctions(Model model){
         List<Auction> allFinishedAuctions = auctionService.findAllFinishedAuctions();
-        model.addAttribute("finishedAuctions",allFinishedAuctions);
+        model.addAttribute("auctions",allFinishedAuctions);
         return "index";
     }
 }

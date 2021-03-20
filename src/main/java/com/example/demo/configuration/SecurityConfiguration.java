@@ -17,7 +17,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/auctions","/auction-archive", "/auctionDetail/*", "/category/*", "/logout")
+                .antMatchers("/", "/auctions","/finished-auctions","/close-outdated-auctions", "/auctionDetail/*", "/category/*", "/logout")
                 .permitAll()
                 .antMatchers("/addUser/", "/registerUser", "/registerNewUser")
                 .anonymous()

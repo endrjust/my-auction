@@ -34,7 +34,7 @@ public class AuctionService {
     }
 
     public void closeOutdatedAuctions() {
-        List<Auction> auctionList = auctionRepository.findAllByFinishedFalseAndEndDateTimeBefore(LocalDateTime.now());
+        List<Auction> auctionList = auctionRepository.findAllByEndDateTimeBefore(LocalDateTime.now());
         auctionList.forEach(auction -> auction.setFinished(true));
         auctionRepository.saveAll(auctionList);
     }

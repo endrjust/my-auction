@@ -20,5 +20,5 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
     List<Auction> findAllByActualPriceBetween(BigDecimal priceLowerBound, BigDecimal priceUpperBound);
 
-    List<Auction> findAllByFinishedFalseAndEndDateTimeBefore(LocalDateTime dateTime);
+    List<Auction> findAllByEndDateTimeBefore(LocalDateTime dateTime);
 }
