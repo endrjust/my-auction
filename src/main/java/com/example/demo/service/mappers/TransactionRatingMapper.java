@@ -13,7 +13,7 @@ public class TransactionRatingMapper {
         transactionRatingDto.setTitle(transactionRating.getTitle());
         transactionRatingDto.setAccountName(transactionRating.getAccountName());
         transactionRatingDto.setComment(transactionRating.getComment());
-        transactionRatingDto.setRate(transactionRating.getRate());
+//        transactionRatingDto.setRate(transactionRating.getRate());
         return transactionRatingDto;
     }
 
@@ -23,7 +23,7 @@ public class TransactionRatingMapper {
         transactionRating.setTitle(transactionRatingDto.getTitle());
         transactionRating.setAccountName(transactionRatingDto.getAccountName());
         transactionRating.setComment(transactionRatingDto.getComment());
-        transactionRating.setRate(transactionRatingDto.getRate());
+//        transactionRating.setRate(transactionRatingDto.getRate());
         return transactionRating;
     }
 }
