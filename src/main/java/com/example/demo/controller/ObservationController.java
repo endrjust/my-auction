@@ -28,7 +28,7 @@ public class ObservationController {
     }
     @GetMapping( path = "/{userId}")
     public List<ObservationDto> findAllUserObservations(@PathVariable long userId){
-        return observationService.findAllUserObservations(userId);
+        return observationService.findAllUserObservationsByUserId(userId);
     }
 
 }

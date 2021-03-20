@@ -10,5 +10,9 @@ import java.time.LocalDateTime;
 public class ObservationDto {
     private long auctionId;
     private long userId;
-    private LocalDateTime startObservationDate;
+
+    public ObservationDto(long auctionId, long userId) {
+        this.auctionId = auctionId;
+        this.userId = userId;
+    }
 }

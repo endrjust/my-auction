@@ -36,7 +36,7 @@ public class AuctionHtmlController {
     @GetMapping("/auctionDetail/{auctionId}")
     public String auctionDetails(Model model, @PathVariable long auctionId, @RequestParam(required = false) boolean offerBidTooLow) {
         Auction auctionById = auctionService.findAuctionById(auctionId);
-        Iterable<Bidding> allBids = biddingService.findAllBidsEntity();
+        Iterable<Bidding> allBids = biddingService.findBidByAuctionId(auctionId);
         if (offerBidTooLow) {
             model.addAttribute("tooLowPrice", true);
         }
@@ -85,9 +85,8 @@ public class AuctionHtmlController {
         return "redirect:/auctionDetail/" + auctionId;
     }
 
-
-    @PostMapping("/close-outdated-auctions")
-    public String closeFinishedAuctions(){
+    @GetMapping("/close-outdated-auctions")
+    public String closeAllFinishedAuctions(Model model){
     auctionService.closeOutdatedAuctions();
         return "redirect:/";
     }

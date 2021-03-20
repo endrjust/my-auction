@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="profilepage.css">
+
+</head>
+<body>
+<!-- Menu navbar z pliku header.html -->
+<div th:insert="~{header::header}"></div>
+
+<div class="container">
+    <div class="profile-header-img align-content-center">
+        <img src="https://www.pngfind.com/pngs/m/110-1102775_download-empty-profile-hd-png-download.png"
+             width="280" height="300" alt="">
+    </div>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-home" type="button" role="tab"
+                    aria-controls="nav-home" aria-selected="true">Profile
+            </button>
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-profile" type="button" role="tab"
+                    aria-controls="nav-profile" aria-selected="false">My Auctions
+            </button>
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-contact" type="button" role="tab"
+                    aria-controls="nav-contact" aria-selected="false">Observed
+            </button>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+             aria-labelledby="nav-home-tab">
+            <div class="table-responsive">
+                <table class="table table-profile">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>
+                            <h4 th:text="${user.getAccountName()}"></h4>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="highlight">
+                        <td class="field">Region</td>
+                        <td><a th:text="${user.getRegion()}"></a></td>
+                    </tr>
+                    <tr class="highlight">
+                        <td class="field">City</td>
+                        <td><a th:text="${user.getCity()}"></a></td>
+                    </tr>
+                    <tr class="highlight">
+                        <td class="field">Street</td>
+                        <td><a th:text="${user.getStreet()}"></a></td>
+                    </tr>
+                    <tr class="highlight">
+                        <td class="field">House Number</td>
+                        <td><a th:text="${user.getHouseNumber()}"></a></td>
+                    </tr>
+                    <tr class="highlight">
+                        <td class="field">Postal Code</td>
+                        <td><a th:text="${user.getPostalCode()}"></a></td>
+                    </tr>
+                    <tr class="highlight">
+                        <td class="field">Account Status</td>
+                        <td><a th:text="${user.getAccountStatus()}"></a></td>
+                    </tr>
+                    <tr class="highlight">
+                        <td class="field">Account Type</td>
+                        <td><a th:text="${user.getAccountType()}"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a th:href="@{/user-profile}" class="btn-danger" >EDIT</a>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel"
+             aria-labelledby="nav-profile-tab">...
+        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel"
+             aria-labelledby="nav-contact-tab">
+            <div th:each="auction: ${userObservations}">
+                <a th:href="@{auctionDetail/{auctionId}(auctionId=${auction.getAuctionId()})}" th:text="${auction.getAuctionId()}"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

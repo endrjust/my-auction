@@ -68,11 +68,15 @@
                             <th class="pl-0 w-25" scope="row"><strong>End Date</strong></th>
                             <td th:text="${#temporals.format(auction.getEndDateTime(), 'dd-MM-yyyy HH:mm')}"></td>
                         </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Is Finished</strong></th>
+                            <td th:text="${auction.isFinished()}"></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
                 <hr>
-                <div  sec:authorize="isAuthenticated()">
+                <div  sec:authorize="isAuthenticated()" th:if="${!auction.isFinished()}">
 
                     <button type="button" class="btn btn-primary btn-md mr-1 mb-2">Buy now</button>
                     <form th:action="@{/makeBid/__${auctionId}__}" th:object="${newBid}" method="post">

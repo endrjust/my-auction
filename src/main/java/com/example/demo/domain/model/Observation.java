@@ -17,4 +17,5 @@ public class Observation {
 
     private long auctionId;
     private long userId;
+
 }
