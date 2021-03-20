@@ -32,13 +32,6 @@ public class AuctionHtmlController {
         return "index";
     }
 
-    @GetMapping("/auction-archive")
-    public String allFinishedAuctions(Model model) {
-        List<Auction> allFinishedAuctionsList = auctionService.findAllFinishedEntities();
-        model.addAttribute("finishedAuctions", allFinishedAuctionsList);
-        return "/auction-archive";
-    }
-
 
     @GetMapping("/auctionDetail/{auctionId}")
     public String auctionDetails(Model model, @PathVariable long auctionId, @RequestParam(required = false) boolean offerBidTooLow) {
@@ -92,5 +85,11 @@ public class AuctionHtmlController {
         return "redirect:/auctionDetail/" + auctionId;
     }
 
-
+    @GetMapping("/close-outdated-auctions")
+    public String findAllFinishedAuctions(Model model){
+    auctionService.closeOutdatedAuctions();
+        List<Auction> allFinishedAuctions = auctionService.findAllFinishedAuctions();
+        model.addAttribute("finishedAuctions",allFinishedAuctions);
+        return "index";
+    }
 }

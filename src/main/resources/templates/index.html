@@ -24,6 +24,10 @@
             <a th:href="@{/category/{categoryName}(categoryName=${category})}"
                class="list-group-item list-group-item-action list-group-item-dark fs-4" th:text="${category}"></a>
         </div>
+        <div>
+            <a th:href="@{/close-outdated-auctions}"
+               class="list-group-item list-group-item-action list-group-item-dark fs-4" >ARCHIVE</a>
+        </div>
     </div>
     <div class="col-md-10 ">
         <!-- List group-->

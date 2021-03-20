@@ -5,6 +5,7 @@ import com.example.demo.domain.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
@@ -19,5 +20,5 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
     List<Auction> findAllByActualPriceBetween(BigDecimal priceLowerBound, BigDecimal priceUpperBound);
 
-
+    List<Auction> findAllByFinishedFalseAndEndDateTimeBefore(LocalDateTime dateTime);
 }

@@ -89,7 +89,7 @@ public class DataInit {
         auction3.setEndDateTime(LocalDateTime.now().minusDays(1));
         auction3.setLocation("Torun");
         auction3.setBuyNowEnable(false);
-        auction3.setFinished(true);
+
 
         auctionRepository.save(auction3);
     }

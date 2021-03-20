@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,14 +33,20 @@ public class AuctionService {
                 .filter(auction -> !auction.isFinished()).collect(Collectors.toList());
     }
 
-    public List<Auction> findAllFinishedEntities() {
+    public void closeOutdatedAuctions() {
+        List<Auction> auctionList = auctionRepository.findAllByFinishedFalseAndEndDateTimeBefore(LocalDateTime.now());
+        auctionList.forEach(auction -> auction.setFinished(true));
+        auctionRepository.saveAll(auctionList);
+    }
+
+    public List<Auction> findAllFinishedAuctions() {
         return auctionRepository.findAll().stream()
                 .filter(Auction::isFinished).collect(Collectors.toList());
     }
 
     public List<AuctionDto> findAll() {
         return auctionRepository.findAll().stream()
-                .filter(auction -> !auction.isFinished())
+
                 .map(auctionMapper::map).collect(Collectors.toList());
     }
 
