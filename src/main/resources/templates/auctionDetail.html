@@ -74,17 +74,17 @@
                 <hr>
                 <div  sec:authorize="isAuthenticated()">
 
-                    <button th:if="${auction.isFinished()== 'F'}" type="button" class="btn btn-primary btn-md mr-1 mb-2">Buy now</button>
+                    <button type="button" class="btn btn-primary btn-md mr-1 mb-2">Buy now</button>
                     <form th:action="@{/makeBid/__${auctionId}__}" th:object="${newBid}" method="post">
 
                         <div class="input-group mb-3">
-                            <span th:if="${auction.isFinished()== 'F'}" class="input-group-text" id="basic-addon3">OfferPrice</span>
-                            <input th:if="${auction.isFinished()== 'F'}" type="text" th:field="*{offerPrice}" class="form-control" placeholder="OfferPrice"
+                            <span  class="input-group-text" id="basic-addon3">OfferPrice</span>
+                            <input  type="text" th:field="*{offerPrice}" class="form-control" placeholder="OfferPrice"
                                    aria-label="OfferPrice"
                                    aria-describedby="basic-addon2">
                         </div>
                         <p th:if="${tooLowPrice}">Offered price has to be higher than actual price</p>
-                        <p><input th:if="${auction.isFinished()== 'F'}" type="submit" value="MAKE BID" sec:authorize="isAuthenticated()"></p>
+                        <p><input  type="submit" value="MAKE BID" sec:authorize="isAuthenticated()"></p>
                     </form>
                 </div>
                 <p  sec:authorize="!isAuthenticated()">Zaloguj sie, aby móc licytować lub dokonać zakupu.</p>
