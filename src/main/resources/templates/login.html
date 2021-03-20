@@ -26,7 +26,7 @@
                         <input type="password" name="password" class="form-control" placeholder="Password">
 
                     </div>
-                    <p th:if="${loginError}" >Wrong Username or Password</p>
+                    <p th:if="${loginError}">Wrong Username or Password</p>
                     <div class="col-12">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="rememberMe">
@@ -39,7 +39,7 @@
                 </form>
                 <hr class="mt-4">
                 <div class="col-12">
-                    <p class="text-center mb-0">Have not account yet? <a th:href="@{/registerUser}">Signup</a></p>
+                    <p class="text-center mb-0">No account yet? <a th:href="@{/registerUser}">Signup</a></p>
                 </div>
             </div>
         </div>

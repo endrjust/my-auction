@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.domain.model.User;
 import com.example.demo.exception.EmailExistsException;
 import com.example.demo.model.UserDto;
 import com.example.demo.service.UserService;
@@ -22,29 +23,28 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserDto> getAll(){
+    public List<UserDto> getAll() {
         return userService.findAll();
     }
 
     @GetMapping("/{userId}")
-    public UserDto findUser (@PathVariable long userId){
-       return userService.findUser(userId);
+    public UserDto findUser(@PathVariable long userId) {
+        return userService.findUser(userId);
     }
-
 
     @PostMapping
     public UserDto saveUser(@Valid @RequestBody UserDto userDto) throws EmailExistsException {
-       return  userService.saveUser(userDto);
+        return userService.saveUser(userDto);
     }
 
     @DeleteMapping("/{userId}")
-    public void deleteUSer(@PathVariable long userId){
+    public void deleteUser(@PathVariable long userId) {
         userService.deleteUser(userId);
     }
 
     @PutMapping("/{userId}")
-        public void updateUser(@Valid @RequestBody UserDto userDto, @PathVariable long userId){
-        userService.updateUser(userDto, userId);
+    public User updateUser(@Valid @RequestBody UserDto userDto) {
+       return userService.updateUser(userDto);
 
     }
 }

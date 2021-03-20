@@ -18,7 +18,7 @@ public class ObservationMapper {
         ObservationDto observationDto=new ObservationDto();
         observationDto.setAuctionId(observation.getAuctionId());
         observationDto.setUserId(observation.getUserId());
-        observationDto.setStartObservationDate(observation.getStartObservationDate());
+
         return observationDto;
     }
 }

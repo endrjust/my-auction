@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class DataInit {
@@ -27,9 +29,13 @@ public class DataInit {
         User user1 = new User();
         user1.setAccountName("lukasz123");
         user1.setPassword("pass");
+        user1.setRegion("kujawsko-pomorskie");
         user1.setCity("Torun");
+        user1.setStreet("Długa");
+        user1.setHouseNumber(1);
+        user1.setPostalCode("11-111");
         user1.setEmail("lukasz123@gmail.com");
-        user1.setStreet("XXX");
+        user1.setCreated(LocalDate.parse("2020-02-02", DateTimeFormatter.ISO_LOCAL_DATE));
         user1.setAccountStatus(AccountStatus.ACTIVE);
         user1.setAccountType(AccountType.PREMIUM);
         user1.setPassword(passwordEncoder.encode(user1.getPassword()));
@@ -38,11 +44,15 @@ public class DataInit {
         User user2 = new User();
         user2.setAccountName("andrzej");
         user2.setPassword("pass");
+        user2.setRegion("śląskie");
         user2.setCity("Katowice");
+        user2.setStreet("Krótka");
+        user2.setHouseNumber(1);
+        user2.setPostalCode("11-111");
         user2.setEmail("andrzej@wp.pl");
-        user2.setStreet("XXX");
+        user2.setCreated(LocalDate.parse("2019-08-20", DateTimeFormatter.ISO_LOCAL_DATE));
         user2.setAccountStatus(AccountStatus.ACTIVE);
-        user2.setAccountType(AccountType.PREMIUM);
+        user2.setAccountType(AccountType.STANDARD);
         user2.setPassword(passwordEncoder.encode(user2.getPassword()));
         userRepository.save(user2);
 

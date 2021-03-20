@@ -10,6 +10,7 @@ import com.example.demo.exception.InvalidRegistrationDataException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.UserDto;
 import com.example.demo.service.mappers.UserMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -50,26 +51,27 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(userId);
     }
 
-    public UserDto updateUser(UserDto userDto, long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " cannot be found"));
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
+    public User updateUser(UserDto userDto) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        userRepository.findById(userId)
+//                .orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " cannot be found"));
+//        user.setEmail(userDto.getEmail());
+//        user.setPassword(userDto.getPassword());
         user.setAccountName(userDto.getAccountName());
         user.setRegion(userDto.getRegion());
         user.setCity(userDto.getCity());
         user.setStreet(user.getStreet());
         user.setHouseNumber(userDto.getHouseNumber());
         user.setPostalCode(userDto.getPostalCode());
-        user.setCreated(LocalDate.now());
-        if (userDto.getAccountStatus() != null) {
-            user.setAccountStatus(AccountStatus.valueOf(userDto.getAccountStatus().toUpperCase()));
-        }
-        if (userDto.getAccountType() != null) {
-            user.setAccountType(AccountType.valueOf(userDto.getAccountType().toUpperCase()));
-        }
+//        user.setCreated(LocalDate.now());
+//        if (userDto.getAccountStatus() != null) {
+//            user.setAccountStatus(AccountStatus.valueOf(userDto.getAccountStatus().toUpperCase()));
+//        }
+//        if (userDto.getAccountType() != null) {
+//            user.setAccountType(AccountType.valueOf(userDto.getAccountType().toUpperCase()));
+//        }
 
-        return userMapper.map(userRepository.save(user));
+        return userRepository.save(user);
     }
 
     public UserDto findUser(long userId) {
@@ -78,10 +80,10 @@ public class UserService implements UserDetailsService {
         return userMapper.map(user);
     }
 
-    public User findUserEntity(long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " cannot be found"));
-        return user;
+    public User findUserEntity() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userRepository.findById(user.getId())
+                .orElseThrow(() -> new UserNotFoundException("User cannot be found"));
     }
 
     public void validateUserRegistration(UserDto userDto) throws EmailExistsException, InvalidRegistrationDataException {

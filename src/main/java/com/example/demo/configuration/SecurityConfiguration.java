@@ -17,10 +17,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/auctions","/finished-auctions","/close-outdated-auctions", "/auctionDetail/*", "/category/*", "/logout")
+                .antMatchers("/", "/auctions", "/finished-auctions", "/close-outdated-auctions", "/auctionDetail/*", "/category/*", "/logout")
                 .permitAll()
                 .antMatchers("/addUser/", "/registerUser", "/registerNewUser")
                 .anonymous()
+                .antMatchers("/h2-console/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -34,6 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                 .logoutSuccessUrl("/")
                 .permitAll();
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
 
     }
 
