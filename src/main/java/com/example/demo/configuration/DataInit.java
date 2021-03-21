@@ -3,6 +3,7 @@ package com.example.demo.configuration;
 import com.example.demo.domain.model.*;
 import com.example.demo.domain.repository.AuctionRepository;
 import com.example.demo.domain.repository.UserRepository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Service
+@Profile("dev")
 public class DataInit {
     private PasswordEncoder passwordEncoder;
     private final AuctionRepository auctionRepository;
