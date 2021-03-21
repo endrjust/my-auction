@@ -29,7 +29,7 @@ public class TransactionRatingHtmlController {
         model.addAttribute("newRate", new TransactionRatingDto());
         Auction auctionById = auctionService.findAuctionById(auctionId);
         model.addAttribute("auctionById", auctionById);
-        return "/rateForm";
+        return "rateForm";
     }
 
     @PostMapping("/addRate/{auctionId}")

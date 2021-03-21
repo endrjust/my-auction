@@ -33,7 +33,7 @@ public class AuctionHtmlController {
     public String allAuctions(Model model) {
         List<Auction> auctionsList = auctionService.findAllEntities();
         model.addAttribute("auctions", auctionsList);
-        return "/index";
+        return "index";
     }
 
 
@@ -51,13 +51,13 @@ public class AuctionHtmlController {
         model.addAttribute("auctionId", auctionById.getId());
         model.addAttribute("bids", allBids);
         model.addAttribute("sellerReviews",transactionRatingService.findAllByAuction(auctionId));
-        return "/auctionDetail";
+        return "auctionDetail";
     }
 
     @GetMapping("/auctionForm")
     public String getAuctionForm(Model model) {
         model.addAttribute("newAuction", new AuctionDto());
-        return "/auctionForm";
+        return "auctionForm";
     }
 
     @PostMapping("/addAuction")
@@ -81,7 +81,7 @@ public class AuctionHtmlController {
     public String findByCategory(@PathVariable("categoryName") Category categoryName, Model model) {
         List<Auction> allByCategory = auctionService.findAllByCategoryEntities(categoryName);
         model.addAttribute("auctions", allByCategory);
-        return "/index";
+        return "index";
     }
 
     @PostMapping("/buyNow/{auctionId}")
@@ -101,6 +101,6 @@ public class AuctionHtmlController {
     public String findAllFinishedAuctions(Model model) {
         List<Auction> allFinishedAuctions = auctionService.findAllFinishedAuctions();
         model.addAttribute("auctions", allFinishedAuctions);
-        return "/index";
+        return "index";
     }
 }
