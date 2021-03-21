@@ -49,15 +49,15 @@ public class AuctionHtmlController {
     }
 
     @GetMapping("/auctionForm")
-    public String addAuctionForm(Model model) {
+    public String getAuctionForm(Model model) {
         model.addAttribute("newAuction", new AuctionDto());
-        return "auctionForm";
+        return "/auctionForm";
     }
 
     @PostMapping("/addAuction")
     public String addAuctionPost(@Valid @ModelAttribute AuctionDto auctionDto) {
         auctionService.saveAuction(auctionDto);
-        return "redirect:auctionForm";
+        return "redirect:/auctionForm";
     }
 
     @PostMapping("/makeBid/{auctionId}")
@@ -75,7 +75,7 @@ public class AuctionHtmlController {
     public String findByCategory(@PathVariable("categoryName") Category categoryName, Model model) {
         List<Auction> allByCategory = auctionService.findAllByCategoryEntities(categoryName);
         model.addAttribute("auctions", allByCategory);
-        return "index";
+        return "/index";
     }
 
     @PostMapping("/buyNow/{auctionId}")
@@ -95,6 +95,6 @@ public class AuctionHtmlController {
     public String findAllFinishedAuctions(Model model){
         List<Auction> allFinishedAuctions = auctionService.findAllFinishedAuctions();
         model.addAttribute("auctions",allFinishedAuctions);
-        return "index";
+        return "/index";
     }
 }

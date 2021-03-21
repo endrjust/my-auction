@@ -68,64 +68,75 @@
                             <th class="pl-0 w-25" scope="row"><strong>End Date</strong></th>
                             <td th:text="${#temporals.format(auction.getEndDateTime(), 'dd-MM-yyyy HH:mm')}"></td>
                         </tr>
-                        <!--<tr>
-                            <th class="pl-0 w-25" scope="row"><strong>Is Finished</strong></th>
-                            <td ty th:text="${auction.isFinished()}"></td>
-                        </tr>-->
                         </tbody>
                     </table>
                 </div>
                 <hr>
-                <div  sec:authorize="isAuthenticated()" th:if="${!auction.isFinished()}">
 
-                    <button type="button" class="btn btn-primary btn-md mr-1 mb-2">Buy now</button>
+                <div sec:authorize="isAuthenticated()" th:if="${!auction.isFinished()}">
+                    <button type="button" class="btn btn-primary btn-md mr-1 mb-2">BUY NOW</button>
                     <form th:action="@{/makeBid/__${auctionId}__}" th:object="${newBid}" method="post">
 
                         <div class="input-group mb-3">
-                            <span  class="input-group-text" id="basic-addon3">OfferPrice</span>
-                            <input  type="text" th:field="*{offerPrice}" class="form-control" placeholder="OfferPrice"
+                            <span class="input-group-text" id="basic-addon3">OfferPrice</span>
+                            <input type="text" th:field="*{offerPrice}" class="form-control" placeholder="OfferPrice"
                                    aria-label="OfferPrice"
                                    aria-describedby="basic-addon2">
                         </div>
                         <p th:if="${tooLowPrice}">Offered price has to be higher than actual price</p>
-                        <p><input  type="submit" value="MAKE BID" sec:authorize="isAuthenticated()"></p>
+                        <p><input type="submit" value="MAKE BID" sec:authorize="isAuthenticated()"></p>
                     </form>
                 </div>
-                <p  sec:authorize="!isAuthenticated()">Zaloguj sie, aby móc licytować lub dokonać zakupu.</p>
+                <p sec:authorize="!isAuthenticated()">Zaloguj się, aby móc licytować, dokonać zakupu lub ocenić
+                    transakcję.</p>
                 <hr>
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
-                                type="button" role="tab" aria-controls="home" aria-selected="true">Bids
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
-                                type="button" role="tab" aria-controls="profile" aria-selected="false">Reviews
-                        </button>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <table class="table" th:each="bid: ${bids}">
-                            <thead>
-                            <tr>
-                                <th scope="col">Username</th>
-                                <th scope="col">OfferPrice</th>
-                                <th scope="col">OfferDate</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td th:text="${bid.getUser().getAccountName()}"></td>
-                                <td th:text="${bid.getOfferPrice()}"></td>
-                                <td th:text="${#temporals.format(bid.getOfferDateTime(), 'dd-MM-yyyy HH:mm')}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                    </div>
+
+                <div class="container"><strong>Bids</strong>
+                    <table class="table" th:each="bid: ${bids}">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">user</th>
+                            <th scope="col">offered price</th>
+                            <th scope="col">date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td th:text="${bid.getUser().getAccountName()}"></td>
+                            <td th:text="${bid.getOfferPrice()}"></td>
+                            <td th:text="${#temporals.format(bid.getOfferDateTime(), 'dd-MM-yyyy HH:mm')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
+
+                <div class="container"><strong> User reviews</strong>
+                    <table class="table" th:each="bid: ${bids}"><!---->
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">auction id</th>
+                            <th scope="col">comment</th>
+                            <th scope="col">rate</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td th:text="${bid.getUser().getAccountName()}"></td>
+                            <td th:text="${bid.getOfferPrice()}"></td>
+                            <td th:text="${#temporals.format(bid.getOfferDateTime(), 'dd-MM-yyyy HH:mm')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <a th:href="@{/rateForm/__${auctionId}__}" th:if="${auction.isFinished()}"
+                   sec:authorize="isAuthenticated()"
+                   class="btn btn-primary">RATE TRANSACTION</a>
+
             </div>
         </div>
     </div>

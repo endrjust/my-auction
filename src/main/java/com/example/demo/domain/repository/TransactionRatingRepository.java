@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface TransactionRatingRepository extends JpaRepository<TransactionRating, Long> {
 
-    List<TransactionRating> findAllByAccountName(String accountName);
+    List<TransactionRating> findAllByUserId (long userId);
 
     TransactionRating findByAuctionId(long auctionId);
 

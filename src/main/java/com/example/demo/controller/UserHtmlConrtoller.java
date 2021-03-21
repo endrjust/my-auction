@@ -32,7 +32,7 @@ public class UserHtmlConrtoller {
     public String allUsers(Model model) {
         List<UserDto> usersList = userService.findAll();
         model.addAttribute("users", usersList);
-        return "users";
+        return "/users";
     }
 
     @GetMapping("/profile")
@@ -41,14 +41,14 @@ public class UserHtmlConrtoller {
         List<ObservationDto> allUserObservations = observationService.findAllUserObservations();
         model.addAttribute("user", user);
         model.addAttribute("userObservations", allUserObservations);
-        return "profile";
+        return "/profile";
     }
 
     @GetMapping("/user-profile")
     public String showUserEditProfileForm(Model model) {
         User user = userService.findUserEntity();
         model.addAttribute("userDetails", user);
-        return "userProfile";
+        return "/userProfile";
     }
 
     @PostMapping("/userEditProfile")
@@ -72,7 +72,7 @@ public class UserHtmlConrtoller {
             model.addAttribute("newUser", userDto);
             model.addAttribute("accountNameExists", true);
             model.addAttribute("message", e.getMessage());
-            return "userForm";
+            return "/userForm";
         }
     }
 
@@ -87,19 +87,19 @@ public class UserHtmlConrtoller {
         try {
             userService.validateUserRegistration(userDto);
             model.addAttribute("newUser", userDto);
-            return "userForm";
+            return "/userForm";
 
         } catch (EmailExistsException e) {
             model.addAttribute("newUser", userDto);
             model.addAttribute("emailExists", true);
             model.addAttribute("message", e.getMessage());
-            return "registerUser";
+            return "/registerUser";
 
         } catch (InvalidRegistrationDataException e) {
             model.addAttribute("newUser", userDto);
             model.addAttribute("wrongPassword", true);
             model.addAttribute("message", e.getMessage());
-            return "registerUser";
+            return "/registerUser";
         }
     }
 
@@ -111,7 +111,7 @@ public class UserHtmlConrtoller {
     @GetMapping("/login-error")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
-        return "login";
+        return "/login";
     }
 
 }

@@ -17,8 +17,8 @@ public class TransactionRatingController {
     }
 
     @PostMapping
-    public TransactionRatingDto add(@Valid @RequestBody TransactionRatingDto transactionRatingDto) {
-        return transactionRatingService.addTransactionRating(transactionRatingDto);
+    public TransactionRatingDto addTransactionRate(@Valid @RequestBody TransactionRatingDto transactionRatingDto) {
+        return transactionRatingService.addTransactionRating(transactionRatingDto,1);//naprawić
     }
 
     @GetMapping(path = "/accountName")

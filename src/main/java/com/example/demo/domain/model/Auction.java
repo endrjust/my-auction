@@ -16,7 +16,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@Entity(name = "auctions")
+@Entity
 public class Auction {
     @Id
     @GeneratedValue

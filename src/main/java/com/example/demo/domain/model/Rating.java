@@ -1,5 +1,5 @@
 package com.example.demo.domain.model;
 
-public enum Rate {
+public enum Rating {
     POSITIVE,NEGATIVE
 }
