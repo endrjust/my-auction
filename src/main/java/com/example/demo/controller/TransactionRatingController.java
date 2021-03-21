@@ -18,12 +18,12 @@ public class TransactionRatingController {
 
     @PostMapping
     public TransactionRatingDto addTransactionRate(@Valid @RequestBody TransactionRatingDto transactionRatingDto) {
-        return transactionRatingService.addTransactionRating(transactionRatingDto,1);//naprawić
+        return transactionRatingService.addTransactionRating(transactionRatingDto, 1);//naprawić
     }
 
-    @GetMapping(path = "/accountName")
-    public List<TransactionRatingDto> findAllByUser(@RequestParam("accountName") String accountName) {
-        return transactionRatingService.findAllByUser(accountName);
+    @GetMapping(path = "/{userId}")
+    public List<TransactionRatingDto> findAllByUser(@RequestParam("userId") long userId) {
+        return transactionRatingService.findAllByUser(userId);
     }
 
     @GetMapping(path = "/{auctionId}")

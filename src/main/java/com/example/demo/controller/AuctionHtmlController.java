@@ -8,6 +8,7 @@ import com.example.demo.model.AuctionDto;
 import com.example.demo.model.BiddingDto;
 import com.example.demo.service.AuctionService;
 import com.example.demo.service.BiddingService;
+import com.example.demo.service.TransactionRatingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,32 +21,37 @@ public class AuctionHtmlController {
 
     AuctionService auctionService;
     BiddingService biddingService;
+    private final TransactionRatingService transactionRatingService;
 
-    public AuctionHtmlController(AuctionService auctionService, BiddingService biddingService) {
+    public AuctionHtmlController(AuctionService auctionService, BiddingService biddingService, TransactionRatingService transactionRatingService) {
         this.auctionService = auctionService;
         this.biddingService = biddingService;
+        this.transactionRatingService = transactionRatingService;
     }
 
     @GetMapping
     public String allAuctions(Model model) {
         List<Auction> auctionsList = auctionService.findAllEntities();
         model.addAttribute("auctions", auctionsList);
-        return "index";
+        return "/index";
     }
 
 
     @GetMapping("/auctionDetail/{auctionId}")
-    public String auctionDetails(Model model, @PathVariable long auctionId, @RequestParam(required = false) boolean offerBidTooLow) {
+    public String auctionDetails(Model model, @PathVariable long auctionId,
+                                 @RequestParam(required = false) boolean offerBidTooLow) {
         Auction auctionById = auctionService.findAuctionById(auctionId);
         Iterable<Bidding> allBids = biddingService.findBidByAuctionId(auctionId);
         if (offerBidTooLow) {
             model.addAttribute("tooLowPrice", true);
         }
+
         model.addAttribute("auction", auctionById);
         model.addAttribute("newBid", new BiddingDto());
         model.addAttribute("auctionId", auctionById.getId());
         model.addAttribute("bids", allBids);
-        return "auctionDetail";
+        model.addAttribute("sellerReviews",transactionRatingService.findAllByAuction(auctionId));
+        return "/auctionDetail";
     }
 
     @GetMapping("/auctionForm")
@@ -61,7 +67,7 @@ public class AuctionHtmlController {
     }
 
     @PostMapping("/makeBid/{auctionId}")
-    public String makeBid(@PathVariable long auctionId,@Valid @ModelAttribute BiddingDto biddingDto) {
+    public String makeBid(@PathVariable long auctionId, @Valid @ModelAttribute BiddingDto biddingDto) {
         try {
             biddingDto.setAuctionId(auctionId);
             biddingService.makeBid(biddingDto);
@@ -86,15 +92,15 @@ public class AuctionHtmlController {
     }
 
     @PostMapping("/close-outdated-auctions")
-    public String closeAllFinishedAuctions(){
-    auctionService.closeOutdatedAuctions();
+    public String closeAllFinishedAuctions() {
+        auctionService.closeOutdatedAuctions();
         return "redirect:/";
     }
 
     @GetMapping("/finished-auctions")
-    public String findAllFinishedAuctions(Model model){
+    public String findAllFinishedAuctions(Model model) {
         List<Auction> allFinishedAuctions = auctionService.findAllFinishedAuctions();
-        model.addAttribute("auctions",allFinishedAuctions);
+        model.addAttribute("auctions", allFinishedAuctions);
         return "/index";
     }
 }

@@ -112,22 +112,22 @@
                     </table>
                 </div>
 
-                <div class="container"><strong> User reviews</strong>
-                    <table class="table" th:each="bid: ${bids}"><!---->
+                <div class="container"><strong> Seller reviews</strong>
+                    <table class="table" th:each="rate: ${sellerReviews}">
                         <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">auction id</th>
+                            <!--<th scope="col">#</th>
+                            <th scope="col">auction id</th>-->
                             <th scope="col">comment</th>
                             <th scope="col">rate</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td th:text="${bid.getUser().getAccountName()}"></td>
-                            <td th:text="${bid.getOfferPrice()}"></td>
-                            <td th:text="${#temporals.format(bid.getOfferDateTime(), 'dd-MM-yyyy HH:mm')}"></td>
+                            <th scope="row" >1</th>
+<!--                            <td th:text="${}"></td>-->
+                            <td th:text="${rate.comment}"></td>
+                            <td th:text="${rate.getRating().name()}"></td>
                         </tr>
                         </tbody>
                     </table>

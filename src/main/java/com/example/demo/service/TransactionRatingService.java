@@ -9,6 +9,7 @@ import com.example.demo.service.mappers.TransactionRatingMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class TransactionRatingService {
@@ -24,10 +25,14 @@ public class TransactionRatingService {
         this.userService = userService;
     }
 
-    public List<TransactionRatingDto> findAllByUser(String accountName) {
-//        return transactionRatingRepository.findAllByAccountName(accountName).stream()
-//                .map(transactionRatingMapper::map).collect(Collectors.toList());
-        return null;
+    public List<TransactionRatingDto> findAllByUser(long userId) {
+        return transactionRatingRepository.findAllByUserId(userId).stream()
+                .map(transactionRatingMapper::map).collect(Collectors.toList());
+    }
+
+    public List<TransactionRatingDto> findAllByAuction(long auctionId) {
+        Auction auctionById = auctionService.findAuctionById(auctionId);
+        return findAllByUser(auctionById.getUser().getId());
     }
 
     public TransactionRatingDto findByAuctionId(long auctionId) {
