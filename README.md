@@ -1,5 +1,6 @@
 # my-auction
 Auction portal created with Spring Boot, Thymeleaf, Bootstrap.
+![Alt text](https://ibb.co/dMfdC4f "Photo from auction details")
 
 ## Technologies:
 
