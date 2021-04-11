@@ -9,7 +9,7 @@ Auction portal created with Spring Boot, Thymeleaf, Bootstrap.
 * Thymeleaf
 * Bootstrap 5
 
-##Authors:
+## Authors:
 * Me
 * Edyta Toporowicz https://github.com/EdytaToporowicz
 * Łukasz Urbański https://github.com/lukaszUrbanski
