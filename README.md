@@ -1,7 +1,7 @@
 # my-auction
 Auction portal created with Spring Boot, Thymeleaf, Bootstrap.
 
-##Technologies:
+## Technologies:
 
 * Spring Boot
 * Spring Data
@@ -10,6 +10,6 @@ Auction portal created with Spring Boot, Thymeleaf, Bootstrap.
 * Bootstrap 5
 
 ##Authors:
-Me
-Edyta Toporowicz https://github.com/EdytaToporowicz
-Łukasz Urbański https://github.com/lukaszUrbanski
+* Me
+* Edyta Toporowicz https://github.com/EdytaToporowicz
+* Łukasz Urbański https://github.com/lukaszUrbanski
